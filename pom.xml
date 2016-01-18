@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>kkdev.kksystem</groupId>
-    <artifactId>plugin.odb2</artifactId>
+    <artifactId>plugin.bluetooth</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
@@ -56,7 +56,7 @@
                         </manifest>
                         <manifestEntries>
                             <kksystem-connector>
-                                kkdev.kksystem.plugin.odb2.KKPlugin
+                                kkdev.kksystem.plugin.bluetooth.KKPlugin
                             </kksystem-connector>
                         </manifestEntries>
                     </archive>
