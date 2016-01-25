@@ -5,6 +5,7 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
 
+import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
  */
 public class BlueCove implements DiscoveryListener, IBTAdapter,IServiceCallback {
 
+    private boolean State=false;
     private static Object lock = new Object();
     private List<RemoteDevice> AvailableDevices;
     private HashMap<String, ServicesConfig> ServicesMapping;
@@ -59,10 +61,13 @@ public class BlueCove implements DiscoveryListener, IBTAdapter,IServiceCallback 
                     lock.wait();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                State=false;
+                out.println("[BT][ERR] Bluetooth adapter disables");
             }
             //
-
+            State=true;
+            
+            
             UUID[] uuidSet;
             for (RemoteDevice Dev : AvailableDevices) {
                 if (ServicesMapping.containsKey(Dev.getBluetoothAddress())) {
@@ -100,7 +105,8 @@ public class BlueCove implements DiscoveryListener, IBTAdapter,IServiceCallback 
             }
 
         } catch (BluetoothStateException ex) {
-            Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
+            State=false;
+            out.println("[BT][ERR] Bluetooth adapter disables");
         }
     }
 
@@ -118,7 +124,7 @@ public class BlueCove implements DiscoveryListener, IBTAdapter,IServiceCallback 
     
     @Override
     public void StopAdaper() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        State=false;
     }
 
     private void InitServicesMapping() {
@@ -160,6 +166,11 @@ public class BlueCove implements DiscoveryListener, IBTAdapter,IServiceCallback 
         }
 
     }//end method
+
+    @Override
+    public boolean State() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
    
 }

@@ -13,5 +13,6 @@ package kkdev.kksystem.plugin.bluetooth.adapters;
 public interface IBTAdapter {
     public void StartAdapter();
     public void StopAdaper();
+    public boolean State();
     
 }
