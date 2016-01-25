@@ -5,8 +5,8 @@
  */
 package kkdev.kksystem.plugin.bluetooth.configuration;
 
-import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_SERVICE_RFCOMM_UUID;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_PLUGIN_EXTCONNECTOR_BTSERVICE_UUID;
+import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_RFCOMM_UUID;
 
 
 /**
@@ -22,13 +22,22 @@ public abstract class kk_DefaultConfig {
         
         DefConf.ODBAdapter=BTConfig.AdapterTypes.BlueCove;
         //
-        DefConf.BTServicesMapping=new ServicesConfig[1];
+        DefConf.BTServicesMapping=new ServicesConfig[2];
         DefConf.BTServicesMapping[0]=new ServicesConfig();
-        DefConf.BTServicesMapping[0].SourceType=ServicesConfig.BT_ServiceType.RFCOMM;
+        DefConf.BTServicesMapping[0].DevType=ServicesConfig.BT_ServiceType.RFCOMM;
         DefConf.BTServicesMapping[0].TargetTag="RAWGPS";
-        DefConf.BTServicesMapping[0].SourceAddr=""; //any
+        DefConf.BTServicesMapping[0].DevAddr=""; //any
         DefConf.BTServicesMapping[0].ServicesUUID=new long[1];
-        DefConf.BTServicesMapping[0].ServicesUUID[0]=KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_SERVICE_RFCOMM_UUID;
+        DefConf.BTServicesMapping[0].ServicesUUID[0]=KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_RFCOMM_UUID;
+        DefConf.BTServicesMapping[0].ServerMode=false;
+        //
+        DefConf.BTServicesMapping[1]=new ServicesConfig();
+        DefConf.BTServicesMapping[1].DevType=ServicesConfig.BT_ServiceType.KK_EXCONNECTOR;
+        DefConf.BTServicesMapping[1].TargetTag="EXCONNECTOR";
+        DefConf.BTServicesMapping[1].DevAddr=""; //any
+        DefConf.BTServicesMapping[1].ServerMode=true; //any
+        DefConf.BTServicesMapping[1].ServicesUUID=new long[1];
+        DefConf.BTServicesMapping[1].ServicesUUID[0]=KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_RFCOMM_UUID;
         return DefConf;
     }
 }
