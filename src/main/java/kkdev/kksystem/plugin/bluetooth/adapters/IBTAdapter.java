@@ -5,14 +5,16 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters;
 
+import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
+
 
 /**
  *
  * @author blinov_is
  */
 public interface IBTAdapter {
-    public void StartAdapter();
+    public void StartAdapter(BTManager BTM);
     public void StopAdaper();
     public boolean State();
-    
+   
 }

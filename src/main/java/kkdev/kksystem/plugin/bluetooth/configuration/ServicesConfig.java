@@ -20,6 +20,8 @@ public class ServicesConfig {
     public String DevAddr;
     public BT_ServiceType DevType;
     public String TargetTag;
-    public long[] ServicesUUID;
+    public long[] lServicesUUID=new long[0];
+    public String[] sServicesUUID=new String[0];
     public boolean ServerMode;
+
 }

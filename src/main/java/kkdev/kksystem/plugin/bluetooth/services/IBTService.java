@@ -10,7 +10,7 @@ package kkdev.kksystem.plugin.bluetooth.services;
  * @author sayma_000
  */
 public interface IBTService {
-    public void ConnectService(String ConnectionURL,IServiceCallback Callback);
+    public void ConnectService(String Tag,String ConnectionURL,IServiceCallback Callback);
     public void StopService();
    
 }

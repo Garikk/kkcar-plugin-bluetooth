@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.microedition.io.Connector;
@@ -24,14 +25,16 @@ public class BTServiceRFCOMM implements IBTService {
 
     private String ServiceURL;
     private boolean Stop = false;
+    private String MyTag;
 
     @Override
-    public void ConnectService(String ConnectionURL, IServiceCallback Callback) {
+    public void ConnectService(String Tag,String ConnectionURL, IServiceCallback Callback) {
 
         Thread ServiceReader = new Thread(new Runnable() {
             public void run() {
                 while (!Stop) {
                     try {
+                        out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL);
                         ServiceURL = ConnectionURL;
                         StreamConnection streamConnection = null;
                         streamConnection = (StreamConnection) Connector.open(ServiceURL);
@@ -40,7 +43,7 @@ public class BTServiceRFCOMM implements IBTService {
 
                         while (!Stop) {
                             String lineRead = bReader2.readLine();
-                            Callback.ReceiveServiceData(lineRead, lineRead);
+                            Callback.ReceiveServiceData(MyTag,lineRead, lineRead);
                         }
                         //
                         if (Stop) {

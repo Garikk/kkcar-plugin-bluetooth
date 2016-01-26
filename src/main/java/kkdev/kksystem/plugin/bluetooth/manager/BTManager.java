@@ -1,8 +1,11 @@
 package kkdev.kksystem.plugin.bluetooth.manager;
 
 import java.util.ArrayList;
+import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerBase;
+import kkdev.kksystem.base.constants.PluginConsts;
+import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.plugin.bluetooth.KKPlugin;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.adapters.bluecove.BlueCove;
@@ -27,8 +30,20 @@ public class BTManager extends PluginManagerBase {
 
         if (PluginSettings.MainConfiguration.ODBAdapter == BTConfig.AdapterTypes.BlueCove) {
             Adapter = new BlueCove();
-            Adapter.StartAdapter();
+            Adapter.StartAdapter(this);
         }
+    }
+    
+    public void BT_ReceiveData(String Tag, String Data)
+    {
+        PinBaseDataTaggedObj RecDat;
+        
+        RecDat=new PinBaseDataTaggedObj();
+        RecDat.FeatureUID=SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID;
+        RecDat.Tag=Tag;
+        RecDat.Value=Data;
+        
+        this.BASE_SendPluginMessage(this.CurrentFeature,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,Data);
     }
     
     
