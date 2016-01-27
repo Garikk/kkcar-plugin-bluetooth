@@ -20,6 +20,10 @@ import javax.bluetooth.LocalDevice;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
+import javax.microedition.io.Connector;
+import javax.obex.ServerRequestHandler;
+import javax.obex.SessionNotifier;
+import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
@@ -41,10 +45,10 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     private HashMap<String, IBTService> BTServices;
     private LocalDevice LD;
     BTManager BTM;
-    
+
     @Override
     public void StartAdapter(BTManager MyBTM) {
-        BTM=MyBTM;
+        BTM = MyBTM;
         AvailableDevices = new HashMap<>();
         BTServices = new HashMap<>();
 
@@ -61,7 +65,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
             // 
             // Use this for connect new external devices
             StartDevicesSearch();
-           // ConnectLocalDevices();
+            // ConnectLocalDevices();
             //
             StartBTEXAService();
 
@@ -86,7 +90,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
         for (ServicesConfig Conf : ServicesMapping.values()) {
             //
-            if (Conf.DevType == ServicesConfig.BT_ServiceType.RFCOMM & Conf.ServerMode==false) {
+            if (Conf.DevType == ServicesConfig.BT_ServiceType.RFCOMM & Conf.ServerMode == false) {
                 out.println("[BT][INF] SVC CONN " + Conf.DevAddr);
                 IBTService Svc = null;
                 Svc = new BTServiceRFCOMM();
@@ -121,7 +125,13 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
     }
 
-    private void StartBTEXAService() {
+    private void StartBTEXAService() throws IOException {
+
+        SessionNotifier serverConnection = (SessionNotifier) Connector.open("btspp://" + LD.getBluetoothAddress() + ":" + KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID + ";name=KKCarEXA");
+        while (!State) {
+            serverConnection.acceptAndOpen(ServerBTEXA);
+            System.out.println("Received BTEXA connection");
+        }
 
     }
 
@@ -129,8 +139,6 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     public void StopAdaper() {
         State = false;
     }
-
-
 
     private void InitServicesMapping() {
         ServicesMapping = new HashMap<>();
@@ -144,6 +152,11 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         }
 
     }
+
+    ServerRequestHandler ServerBTEXA = new ServerRequestHandler() {
+
+    };
+
     DiscoveryListener BTDiscovery = new DiscoveryListener() {
 
         public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
@@ -161,9 +174,9 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
             //
             ServicesConfig Conf = ServicesMapping.get(srs[0].getHostDevice().getBluetoothAddress());
             for (ServiceRecord SR : srs) {
-                    out.println("[BT] Found SVC: " + SR.getAttributeValue(0x0001) + " " + SR.getConnectionURL(0, false));
-                   
-                }
+                out.println("[BT] Found SVC: " + SR.getAttributeValue(0x0001) + " " + SR.getConnectionURL(0, false));
+
+            }
 
             /*
                 if (connectionURL != null) {
@@ -211,6 +224,5 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     public void ReceiveServiceData(String Tag, String SrcAddr, String Data) {
         BTM.BT_ReceiveData(Tag, Data);
     }
-
 
 }
