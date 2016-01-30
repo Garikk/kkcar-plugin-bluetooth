@@ -21,6 +21,8 @@ import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
+import javax.microedition.io.StreamConnectionNotifier;
+import javax.obex.Operation;
 import javax.obex.ServerRequestHandler;
 import javax.obex.SessionNotifier;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID;
@@ -44,6 +46,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     private HashMap<String, ServicesConfig> ServicesMapping;
     private HashMap<String, IBTService> BTServices;
     private LocalDevice LD;
+    private List<BTConnectionWorker> Connections;
     BTManager BTM;
 
     @Override
@@ -51,6 +54,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         BTM = MyBTM;
         AvailableDevices = new HashMap<>();
         BTServices = new HashMap<>();
+        Connections=new ArrayList<>();
 
         //
         InitServicesMapping();
@@ -125,12 +129,18 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
     }
 
-    private void StartBTEXAService() throws IOException {
+    private void StartBTEXAService() {
 
-        SessionNotifier serverConnection = (SessionNotifier) Connector.open("btspp://" + LD.getBluetoothAddress() + ":" + KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID + ";name=KKCarEXA");
-        while (!State) {
-            serverConnection.acceptAndOpen(ServerBTEXA);
-            System.out.println("Received BTEXA connection");
+        try {
+            StreamConnectionNotifier serverConnection;
+            serverConnection = (StreamConnectionNotifier) Connector.open("btspp://" + LD.getBluetoothAddress() + ":" + KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID + ";name=KKCarEXA");
+            while (!State) {
+                
+                Connections.add(new BTConnectionWorker(this,"",serverConnection.acceptAndOpen()));
+                System.out.println("Received BTEXA connection");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -154,9 +164,15 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     }
 
     ServerRequestHandler ServerBTEXA = new ServerRequestHandler() {
+        @Override
+        public int onPut(Operation op) {
+            return super.onPut(op); //To change body of generated methods, choose Tools | Templates.
+        }
 
     };
 
+       
+    
     DiscoveryListener BTDiscovery = new DiscoveryListener() {
 
         public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {

@@ -1,5 +1,6 @@
 package kkdev.kksystem.plugin.bluetooth.manager;
 
+import static java.lang.System.out;
 import java.util.ArrayList;
 import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
@@ -36,6 +37,8 @@ public class BTManager extends PluginManagerBase {
     
     public void BT_ReceiveData(String Tag, String Data)
     {
+        out.println("[BT][RCV] " +Data);
+          
         PinBaseDataTaggedObj RecDat;
         
         RecDat=new PinBaseDataTaggedObj();
