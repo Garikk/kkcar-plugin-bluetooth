@@ -75,6 +75,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
         } catch (BluetoothStateException ex) {
             State = false;
+            out.println("[BT][ERR]" + ex.getMessage() );
             out.println("[BT][ERR] Bluetooth adapter disabled");
         }
     }
@@ -130,11 +131,14 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     }
 
     private void StartBTEXAService() {
-
+        UUID _uuid = new UUID("0000110100001000800000805F9B34FB",false);
+        
         try {
+            System.out.println("[BT][INF] Ready BTEXA on btspp://localhost:"+_uuid+";name=KKCarEXA"  );
+            System.out.println("[BT][INF] My HWADDR" + LD.getBluetoothAddress()  );
             StreamConnectionNotifier serverConnection;
-            serverConnection = (StreamConnectionNotifier) Connector.open("btspp://" + LD.getBluetoothAddress() + ":" + KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID + ";name=KKCarEXA");
-            while (!State) {
+            serverConnection = (StreamConnectionNotifier) Connector.open("btspp://localhost:"+_uuid+";name=KKCarEXA"  );
+            while (State) {
                 
                 Connections.add(new BTConnectionWorker(this,"",serverConnection.acceptAndOpen()));
                 System.out.println("Received BTEXA connection");
@@ -142,7 +146,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         } catch (IOException ex) {
             Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+   System.out.println("[BT][INF] STOP BTEXA"  );
     }
 
     @Override
