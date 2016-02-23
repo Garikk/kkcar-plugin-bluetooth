@@ -137,7 +137,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
             System.out.println("[BT][INF] Ready BTEXA on btspp://localhost:"+_uuid+";name=KKCarEXA"  );
             System.out.println("[BT][INF] My HWADDR" + LD.getBluetoothAddress()  );
             StreamConnectionNotifier serverConnection;
-            serverConnection = (StreamConnectionNotifier) Connector.open("btspp://localhost:"+_uuid+";name=KKCarEXA"  );
+            serverConnection = (StreamConnectionNotifier) Connector.open("btspp://localhost:"+_uuid+""  );
             while (State) {
                 
                 Connections.add(new BTConnectionWorker(this,"",serverConnection.acceptAndOpen()));

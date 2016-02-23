@@ -8,6 +8,7 @@ package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.microedition.io.StreamConnection;
@@ -61,8 +62,15 @@ public class BTConnectionWorker  {
               while (Active)
               {
                   try {
-                      RData=DIS.readUTF();
-                      Callback.ReceiveServiceData("BT", Addr, RData);
+                      if (DIS.available()!=0)
+                      {
+                           out.println("[BT] NDDD " + DIS.available());
+                         byte[] R=new byte[DIS.available()];
+                         DIS.readFully(R);
+                       
+                         RData=new String(R);
+                        Callback.ReceiveServiceData("BT", Addr, RData);
+                      }
                   } catch (IOException ex) {
                       Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
                       Active=false;
