@@ -12,16 +12,17 @@ package kkdev.kksystem.plugin.bluetooth.configuration;
 public class ServicesConfig {
     public enum BT_ServiceType
     {
-        KK_EXCONNECTOR,
+        KK_EXA_CONNECTOR,
         RFCOMM,
         CUSTOM
     }
     
+    public String Name;
     public String DevAddr;
     public BT_ServiceType DevType;
-    public String TargetTag;
-    public long[] lServicesUUID=new long[0];
-    public String[] sServicesUUID=new String[0];
+    public String KK_TargetTag;
+    public long[] ServicesUUID_long=new long[0];
+    public String[] ServicesUUID_String=new String[0];
     public boolean ServerMode;
 
 }

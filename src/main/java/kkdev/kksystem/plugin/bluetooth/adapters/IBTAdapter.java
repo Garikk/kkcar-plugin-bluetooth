@@ -5,6 +5,7 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters;
 
+import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 
 
@@ -16,5 +17,6 @@ public interface IBTAdapter {
     public void StartAdapter(BTManager BTM);
     public void StopAdaper();
     public boolean State();
+    public void RegisterService(ServicesConfig SC);
    
 }

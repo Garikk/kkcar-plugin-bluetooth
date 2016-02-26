@@ -23,14 +23,16 @@ public class BTConnectionWorker  {
     StreamConnection Conn;
     DataInputStream DIS;
     DataOutputStream DOS;
-    String Addr;
+    String SvcName;
     boolean Active;
     
-    public BTConnectionWorker(IServiceCallback SvcCallback, String SrcAddr,StreamConnection  Connection)
+    public BTConnectionWorker(IServiceCallback SvcCallback, String Name,StreamConnection  Connection)
     {
         try {
+            out.println("[BT] Received BTEXA connection for " + Name + " service");
             Conn  =Connection;
-            Addr=SrcAddr;
+            
+            SvcName=Name;
             DIS=Conn.openDataInputStream();
             DOS=Conn.openDataOutputStream();
             //
@@ -64,18 +66,21 @@ public class BTConnectionWorker  {
                   try {
                       if (DIS.available()!=0)
                       {
-                           out.println("[BT] NDDD " + DIS.available());
+                           out.println("[BT][" + SvcName + "] NDDD " + DIS.available());
                          byte[] R=new byte[DIS.available()];
                          DIS.readFully(R);
                        
                          RData=new String(R);
-                        Callback.ReceiveServiceData("BT", Addr, RData);
+                        Callback.ReceiveServiceData("BT", SvcName, RData);
                       }
                   } catch (IOException ex) {
+                      out.println("[BT][" + SvcName + "] Error " + SvcName);
                       Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
                       Active=false;
                   }
               }
+              
+                 out.println("[BT][" + SvcName + "] Close reader from " + SvcName);
             }
             
         });

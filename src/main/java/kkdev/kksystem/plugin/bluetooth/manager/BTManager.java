@@ -12,6 +12,7 @@ import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.adapters.bluecove.BlueCove;
 import kkdev.kksystem.plugin.bluetooth.configuration.BTConfig;
 import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
+import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 
 public class BTManager extends PluginManagerBase {
 
@@ -20,7 +21,6 @@ public class BTManager extends PluginManagerBase {
     public void Start(KKPlugin Conn) {
         this.Connector = Conn;
         //Init Adapters and start scan and connect
-
         PluginSettings.InitConfig(Conn.GlobalConfID, Conn.PluginInfo.GetPluginInfo().PluginUUID);
         //
         ConfigAndInitHW();
@@ -28,11 +28,16 @@ public class BTManager extends PluginManagerBase {
     }
 
     private void ConfigAndInitHW() {
-
+        //Init HW adapter
         if (PluginSettings.MainConfiguration.ODBAdapter == BTConfig.AdapterTypes.BlueCove) {
             Adapter = new BlueCove();
+            //Set up services
+            for (ServicesConfig SVC : PluginSettings.MainConfiguration.BTServicesMapping) {
+                Adapter.RegisterService(SVC);
+            }
             Adapter.StartAdapter(this);
         }
+       
     }
     
     public void BT_ReceiveData(String Tag, String Data)
