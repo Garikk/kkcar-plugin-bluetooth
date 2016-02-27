@@ -51,6 +51,7 @@ public class BTServiceRFCOMM implements IBTService {
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(BTServiceRFCOMM.class.getName()).log(Level.SEVERE, null, ex);
+                        Stop=true;
                     }
                 }
 

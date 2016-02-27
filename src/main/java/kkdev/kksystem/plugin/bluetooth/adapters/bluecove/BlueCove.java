@@ -86,8 +86,9 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         IServiceCallback WorkerCallback = this;
 
         for (ServicesConfig SC : ServicesMapping) {
+            System.out.println("[BT][INF] Check services " + SC.Name);
             if (SC.ServerMode) {
-                BTServer.add(new Thread(new Runnable() {
+                Thread NS=new Thread(new Runnable() {
                     @Override
                     public void run() {
                         //UUID _uuid = new UUID("0000110100001000800000805F9B34FB", false);
@@ -118,7 +119,9 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
                         }
                         System.out.println("[BT][INF] STOP " + SC.Name);
                     }
-                }));
+                });
+                BTServer.add(NS);
+                NS.start();
             }
         }
     }

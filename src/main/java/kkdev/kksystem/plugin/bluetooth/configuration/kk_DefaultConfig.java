@@ -14,7 +14,7 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_PLUGIN_B
  *
  * @author blinov_is
  *
-
+ * 
  */
 public abstract class kk_DefaultConfig {
     public static BTConfig MakeDefaultConfig() {

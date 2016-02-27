@@ -5,9 +5,13 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +27,7 @@ public class BTConnectionWorker  {
     StreamConnection Conn;
     DataInputStream DIS;
     DataOutputStream DOS;
+    BufferedWriter BW;
     String SvcName;
     boolean Active;
     
@@ -35,6 +40,7 @@ public class BTConnectionWorker  {
             SvcName=Name;
             DIS=Conn.openDataInputStream();
             DOS=Conn.openDataOutputStream();
+            BW=new BufferedWriter(new OutputStreamWriter(DOS));
             //
             Callback=SvcCallback;
             //
@@ -50,7 +56,9 @@ public class BTConnectionWorker  {
     public void SendData(String Data)
     {
         try {
-            DOS.writeUTF(Data);
+            //DOS.writeUTF(Data);
+            BW.write(Data);
+            BW.newLine();
         } catch (IOException ex) {
             Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,21 +67,17 @@ public class BTConnectionWorker  {
     
     Thread Reader = new Thread(new Runnable() {
             String RData;
+            BufferedReader br;
             @Override
             public void run() {
+                br=new BufferedReader(new InputStreamReader(DIS));
               while (Active)
               {
                   try {
-                      if (DIS.available()!=0)
-                      {
-                           out.println("[BT][" + SvcName + "] NDDD " + DIS.available());
-                         byte[] R=new byte[DIS.available()];
-                         DIS.readFully(R);
-                       
-                         RData=new String(R);
-                        Callback.ReceiveServiceData("BT", SvcName, RData);
-                      }
-                  } catch (IOException ex) {
+                      RData=br.readLine();
+                        out.println("[BT][" + SvcName + "] Received " + RData);
+                      Callback.ReceiveServiceData("BT", SvcName, RData);
+                   } catch (IOException ex) {
                       out.println("[BT][" + SvcName + "] Error " + SvcName);
                       Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
                       Active=false;
