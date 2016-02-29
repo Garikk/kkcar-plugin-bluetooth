@@ -228,6 +228,14 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         BTM.BT_ReceiveData(Tag, Data);
     }
 
+    @Override
+    public void SendJsonData(String Json) {
+       for (BTConnectionWorker CN:Connections)
+       {
+           CN.SendData(Json);
+       }
+    }
+
 
 }
 

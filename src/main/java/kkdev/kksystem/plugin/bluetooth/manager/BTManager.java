@@ -1,7 +1,10 @@
 package kkdev.kksystem.plugin.bluetooth.manager;
 
+import kkdev.kksystem.base.classes.base.PinBaseData;
+import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerBase;
 import kkdev.kksystem.base.constants.PluginConsts;
+import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA;
 import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.plugin.bluetooth.KKPlugin;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
@@ -38,10 +41,29 @@ public class BTManager extends PluginManagerBase {
     
     public void BT_ReceiveData(String Tag, String Data)
     {
-        this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,Data);
+        PinBaseDataTaggedObj ObjDat;
+        ObjDat=new PinBaseDataTaggedObj();
+        ObjDat.DataType=PinBaseData.BASE_DATA_TYPE.TAGGED_OBJ;
+        ObjDat.Tag=Tag;
+        ObjDat.Value=Data;
+        
+        this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,ObjDat);
     }
     
-    
+    public void ReceivePIN(String PinName,Object PinData)
+    {
+        if (PinName==KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA)
+        {
+            PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)PinData;
+            
+            if (PIN.Tag!="")
+                return;
+            
+            
+            Adapter.SendJsonData((String)PIN.Value);
+        }
+        
+    }
     
 
 }

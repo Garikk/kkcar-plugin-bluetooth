@@ -22,7 +22,8 @@ import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
  *
  * @author sayma_000
  */
-public class BTConnectionWorker  {
+public class BTConnectionWorker {
+
     IServiceCallback Callback;
     StreamConnection Conn;
     DataInputStream DIS;
@@ -30,31 +31,29 @@ public class BTConnectionWorker  {
     BufferedWriter BW;
     String SvcName;
     boolean Active;
-    
-    public BTConnectionWorker(IServiceCallback SvcCallback, String Name,StreamConnection  Connection)
-    {
+
+    public BTConnectionWorker(IServiceCallback SvcCallback, String Name, StreamConnection Connection) {
         try {
             out.println("[BT] Received BTEXA connection for " + Name + " service");
-            Conn  =Connection;
-            
-            SvcName=Name;
-            DIS=Conn.openDataInputStream();
-            DOS=Conn.openDataOutputStream();
-            BW=new BufferedWriter(new OutputStreamWriter(DOS));
+            Conn = Connection;
+
+            SvcName = Name;
+            DIS = Conn.openDataInputStream();
+            DOS = Conn.openDataOutputStream();
+            BW = new BufferedWriter(new OutputStreamWriter(DOS));
             //
-            Callback=SvcCallback;
+            Callback = SvcCallback;
             //
-            Active=true;
+            Active = true;
             //
             Reader.start();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void SendData(String Data)
-    {
+
+    public void SendData(String Data) {
         try {
             //DOS.writeUTF(Data);
             BW.write(Data);
@@ -63,29 +62,28 @@ public class BTConnectionWorker  {
             Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     Thread Reader = new Thread(new Runnable() {
-            String RData;
-            BufferedReader br;
-            @Override
-            public void run() {
-                br=new BufferedReader(new InputStreamReader(DIS));
-              while (Active)
-              {
-                  try {
-                      RData=br.readLine();
-                        out.println("[BT][" + SvcName + "] Received " + RData);
-                      Callback.ReceiveServiceData("BT", SvcName, RData);
-                   } catch (IOException ex) {
-                      out.println("[BT][" + SvcName + "] Error " + SvcName);
-                      Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
-                      Active=false;
-                  }
-              }
-              
-                 out.println("[BT][" + SvcName + "] Close reader from " + SvcName);
+        String RData;
+        BufferedReader br;
+
+        @Override
+        public void run() {
+            br = new BufferedReader(new InputStreamReader(DIS));
+            while (Active) {
+                try {
+                    RData = br.readLine();
+                    out.println("[BT][" + SvcName + "] Received " + RData);
+                    Callback.ReceiveServiceData("BT", SvcName, RData);
+                } catch (IOException ex) {
+                    out.println("[BT][" + SvcName + "] Error " + SvcName);
+                    Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
+                    Active = false;
+                }
             }
-            
-        });
+
+            out.println("[BT][" + SvcName + "] Close reader from " + SvcName);
+        }
+
+    });
 }
