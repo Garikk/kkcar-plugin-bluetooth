@@ -16,7 +16,7 @@ public class BTConfig  extends ExternalConfiguration {
         BlueCove
     }
     
-    public AdapterTypes ODBAdapter;
+    public AdapterTypes BTAdapter;
     public ServicesConfig[] BTServicesMapping;
 
 }

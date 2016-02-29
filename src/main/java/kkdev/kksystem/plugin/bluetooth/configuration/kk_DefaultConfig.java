@@ -21,7 +21,7 @@ public abstract class kk_DefaultConfig {
         
         BTConfig DefConf = new BTConfig();
         
-        DefConf.ODBAdapter=BTConfig.AdapterTypes.BlueCove;
+        DefConf.BTAdapter=BTConfig.AdapterTypes.BlueCove;
         // 
         DefConf.BTServicesMapping=new ServicesConfig[2];
         DefConf.BTServicesMapping[0]=new ServicesConfig();

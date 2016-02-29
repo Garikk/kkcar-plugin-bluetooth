@@ -1,9 +1,5 @@
 package kkdev.kksystem.plugin.bluetooth.manager;
 
-import static java.lang.System.out;
-import java.util.ArrayList;
-import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
-import kkdev.kksystem.base.classes.plugins.PluginMessage;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerBase;
 import kkdev.kksystem.base.constants.PluginConsts;
 import kkdev.kksystem.base.constants.SystemConsts;
@@ -29,7 +25,7 @@ public class BTManager extends PluginManagerBase {
 
     private void ConfigAndInitHW() {
         //Init HW adapter
-        if (PluginSettings.MainConfiguration.ODBAdapter == BTConfig.AdapterTypes.BlueCove) {
+        if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.BlueCove) {
             Adapter = new BlueCove();
             //Set up services
             for (ServicesConfig SVC : PluginSettings.MainConfiguration.BTServicesMapping) {
@@ -42,16 +38,7 @@ public class BTManager extends PluginManagerBase {
     
     public void BT_ReceiveData(String Tag, String Data)
     {
-        out.println("[BT][RCV] " +Data);
-          
-        PinBaseDataTaggedObj RecDat;
-        
-        RecDat=new PinBaseDataTaggedObj();
-        RecDat.FeatureUID=SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID;
-        RecDat.Tag=Tag;
-        RecDat.Value=Data;
-        
-        this.BASE_SendPluginMessage(this.CurrentFeature,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,Data);
+        this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,Data);
     }
     
     
