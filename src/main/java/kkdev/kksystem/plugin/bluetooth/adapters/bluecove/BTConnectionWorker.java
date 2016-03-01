@@ -79,7 +79,14 @@ public class BTConnectionWorker {
                 try {
                     RData = br.readLine();
                     out.println("[BT][" + SvcName + "] Received " + RData);
-                    Callback.ReceiveServiceData("BT", SvcName, RData);
+                    if (RData!=null)
+                    {
+                        Callback.ReceiveServiceData(SvcName, SvcName, RData);
+                    }
+                    else
+                    {
+                        Active=false;
+                    }
                 } catch (IOException ex) {
                     out.println("[BT][" + SvcName + "] Error " + SvcName);
                     Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
