@@ -18,6 +18,6 @@ public interface IBTAdapter {
     public void StopAdaper();
     public boolean State();
     public void RegisterService(ServicesConfig SC);
-    public void SendJsonData(String Json);
+    public void SendJsonData(String ServiceTag,String Json);
    
 }

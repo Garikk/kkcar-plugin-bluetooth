@@ -46,7 +46,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     private List<ServicesConfig> ServicesMapping;
     private HashMap<String, IBTService> BTServices;
     private LocalDevice LD;
-    private List<BTConnectionWorker> Connections;
+    private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
     @Override
@@ -54,7 +54,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         BTM = MyBTM;
         AvailableDevices = new HashMap<>();
         BTServices = new HashMap<>();
-        Connections = new ArrayList<>();
+        ConnectionWorker = new ArrayList<>();
         //
         BTServer = new ArrayList<>();
         //
@@ -100,17 +100,17 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
                             StreamConnectionNotifier serverConnection;
                             serverConnection = (StreamConnectionNotifier) Connector.open("btspp://localhost:" + _uuid + "");
                             while (State) {
-                                Connections.add(new BTConnectionWorker(WorkerCallback, "", serverConnection.acceptAndOpen()));
+                                ConnectionWorker.add(new BTConnectionWorker(WorkerCallback, SC.Name,SC.KK_TargetTag, serverConnection.acceptAndOpen()));
                                 //
                                 // Clean closed connections
                                 List<BTConnectionWorker> CR = new ArrayList();
-                                for (BTConnectionWorker CW : Connections) {
+                                for (BTConnectionWorker CW : ConnectionWorker) {
                                     if (!CW.Active) {
                                         CR.add(CW);
                                     }
                                 }
                                 for (BTConnectionWorker CW : CR) {
-                                    Connections.remove(CW);
+                                    ConnectionWorker.remove(CW);
                                 }
                                 CR.clear();
                             }
@@ -229,10 +229,10 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     }
 
     @Override
-    public void SendJsonData(String Json) {
-       for (BTConnectionWorker CN:Connections)
+    public void SendJsonData(String ServiceTag, String Json) {
+       for (BTConnectionWorker CN:ConnectionWorker)
        {
-           CN.SendData(Json);
+           CN.SendData(ServiceTag,Json);
        }
     }
 

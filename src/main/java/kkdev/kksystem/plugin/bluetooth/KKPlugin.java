@@ -22,7 +22,7 @@ public final class KKPlugin extends KKPluginBase {
 
     @Override
     public void PluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID) {
-        super.PluginInit(BaseConnector, GlobalConfUID); //To change body of generated methods, choose Tools | Templates.
+        super.PluginInit(BaseConnector, GlobalConfUID);
         Global.PM.Start(this);
     }
 
@@ -30,7 +30,7 @@ public final class KKPlugin extends KKPluginBase {
     @Override
     public PluginMessage ExecutePin(PluginMessage Pin) {
         super.ExecutePin(Pin);
-       Global.PM.ReceivePin(Pin.PinName, Pin.PinData);
+       Global.PM.ReceivePIN(Pin.PinName, Pin.PinData);
         return null;
     }
 }

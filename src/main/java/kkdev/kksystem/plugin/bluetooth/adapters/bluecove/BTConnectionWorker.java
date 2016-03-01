@@ -31,12 +31,14 @@ public class BTConnectionWorker {
     BufferedWriter BW;
     String SvcName;
     boolean Active;
+    String svcTag;
 
-    public BTConnectionWorker(IServiceCallback SvcCallback, String Name, StreamConnection Connection) {
+    public BTConnectionWorker(IServiceCallback SvcCallback, String Name, String ServiceTag, StreamConnection Connection) {
         try {
             out.println("[BT] Received BTEXA connection for " + Name + " service");
             Conn = Connection;
 
+            svcTag=ServiceTag;
             SvcName = Name;
             DIS = Conn.openDataInputStream();
             DOS = Conn.openDataOutputStream();
@@ -53,7 +55,10 @@ public class BTConnectionWorker {
         }
     }
 
-    public void SendData(String Data) {
+    public void SendData(String ServiceTag,String Data) {
+        if (!ServiceTag.equals(svcTag))
+            return;
+        
         try {
             //DOS.writeUTF(Data);
             BW.write(Data);
