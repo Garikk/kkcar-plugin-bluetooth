@@ -55,7 +55,6 @@ public class BTManager extends PluginManagerBase {
         if (PinName==KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA)
         {
             PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)PinData;
-            
             Adapter.SendJsonData(PIN.Tag,(String)PIN.Value);
         }
         
