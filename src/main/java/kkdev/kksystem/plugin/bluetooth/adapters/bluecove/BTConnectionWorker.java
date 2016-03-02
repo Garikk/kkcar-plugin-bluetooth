@@ -63,6 +63,7 @@ public class BTConnectionWorker {
             //DOS.writeUTF(Data);
             BW.write(Data);
             BW.newLine();
+            BW.flush();
         } catch (IOException ex) {
             Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
