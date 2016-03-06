@@ -50,7 +50,8 @@ public class BTServiceRFCOMM implements IBTService {
                             streamConnection.close();
                         }
                     } catch (IOException ex) {
-                        Logger.getLogger(BTServiceRFCOMM.class.getName()).log(Level.SEVERE, null, ex);
+                       out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL + " DISABLED");    
+                      //  Logger.getLogger(BTServiceRFCOMM.class.getName()).log(Level.SEVERE, null, ex);
                         Stop=true;
                     }
                 }
