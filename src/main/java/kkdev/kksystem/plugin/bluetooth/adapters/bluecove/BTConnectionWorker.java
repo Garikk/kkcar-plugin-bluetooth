@@ -30,7 +30,7 @@ public class BTConnectionWorker {
     DataOutputStream DOS;
     BufferedWriter BW;
     String SvcName;
-    boolean Active;
+    public boolean Active;
     String svcTag;
 
     public BTConnectionWorker(IServiceCallback SvcCallback, String Name, String ServiceTag, StreamConnection Connection) {
@@ -51,12 +51,16 @@ public class BTConnectionWorker {
             Reader.start();
 
         } catch (IOException ex) {
-            Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
+            Active=false;
+            out.println("[BT][" + SvcName + "] Close reader from " + SvcName);
         }
     }
 
     public void SendData(String ServiceTag,String Data) {
         if (!ServiceTag.equals(svcTag))
+            return;
+        
+        if (Active==false)
             return;
         
         try {
@@ -66,6 +70,8 @@ public class BTConnectionWorker {
             BW.flush();
         } catch (IOException ex) {
             Logger.getLogger(BTConnectionWorker.class.getName()).log(Level.SEVERE, null, ex);
+            Active=false;
+            out.println("[BT][" + SvcName + "] Close reader from " + SvcName);
         }
     }
 
