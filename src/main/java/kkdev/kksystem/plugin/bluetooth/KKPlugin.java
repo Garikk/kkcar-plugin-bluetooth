@@ -8,6 +8,7 @@ package kkdev.kksystem.plugin.bluetooth;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
 import kkdev.kksystem.base.classes.plugins.simple.KKPluginBase;
 import kkdev.kksystem.base.interfaces.IPluginBaseInterface;
+import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 
 /**
@@ -23,14 +24,23 @@ public final class KKPlugin extends KKPluginBase {
     @Override
     public void PluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID) {
         super.PluginInit(BaseConnector, GlobalConfUID);
-        Global.PM.Start(this);
+        PluginSettings.InitConfig(this.GlobalConfID, this.PluginInfo.GetPluginInfo().PluginUUID);
+        Global.PM.Init(this);
     }
 
     
     @Override
     public PluginMessage ExecutePin(PluginMessage Pin) {
         super.ExecutePin(Pin);
-       Global.PM.ReceivePIN(Pin.PinName, Pin.PinData);
+        Global.PM.ReceivePIN(Pin.PinName, Pin.PinData);
         return null;
     }
+    
+    
+     @Override
+    public void PluginStart() {
+         super.PluginStart();
+         Global.PM.Start();
+    }
+
 }

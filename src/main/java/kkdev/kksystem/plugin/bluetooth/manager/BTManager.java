@@ -2,9 +2,11 @@ package kkdev.kksystem.plugin.bluetooth.manager;
 
 import kkdev.kksystem.base.classes.base.PinBaseData;
 import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
+import kkdev.kksystem.base.classes.controls.PinControlData;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerBase;
 import kkdev.kksystem.base.constants.PluginConsts;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA;
+import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_DATA;
 import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.plugin.bluetooth.KKPlugin;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
@@ -12,20 +14,26 @@ import kkdev.kksystem.plugin.bluetooth.adapters.bluecove.BlueCove;
 import kkdev.kksystem.plugin.bluetooth.configuration.BTConfig;
 import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
+import kkdev.kksystem.plugin.bluetooth.configuration.confmenu.BTMenu;
 
 public class BTManager extends PluginManagerBase {
 
     private IBTAdapter Adapter;
+    private BTMenu BTSettingsMenu;
 
-    public void Start(KKPlugin Conn) {
+    public void Init(KKPlugin Conn) {
         this.Connector = Conn;
         //Init Adapters and start scan and connect
-        PluginSettings.InitConfig(Conn.GlobalConfID, Conn.PluginInfo.GetPluginInfo().PluginUUID);
+        this.CurrentFeature = PluginSettings.MainConfiguration.FeatureID;
+        BTSettingsMenu=new BTMenu();
         //
         ConfigAndInitHW();
         //
+        
     }
-
+    public void Start() {
+        BTSettingsMenu.InitBTMenu();
+    }
     private void ConfigAndInitHW() {
         //Init HW adapter
         if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.BlueCove) {
@@ -56,6 +64,10 @@ public class BTManager extends PluginManagerBase {
         {
             PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)PinData;
             Adapter.SendJsonData(PIN.Tag,(String)PIN.Value);
+        }
+        else if (PinName==KK_PLUGIN_BASE_CONTROL_DATA)
+        {
+             BTSettingsMenu.ProcessControlPIN((PinControlData)PinData);
         }
         
     }

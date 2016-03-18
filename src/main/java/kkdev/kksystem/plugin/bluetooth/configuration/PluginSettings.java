@@ -24,7 +24,7 @@ public abstract class PluginSettings {
         Settings=new SettingsManager(BT_CONF,BTConfig.class);
         
         
-        System.out.println("[BT][CONFIG] Load configuration");
+       // System.out.println("[BT][CONFIG] Load configuration");
         MainConfiguration=(BTConfig)Settings.LoadConfig();
 
         if (MainConfiguration == null) {

@@ -6,6 +6,7 @@
 package kkdev.kksystem.plugin.bluetooth.configuration;
 
 import kkdev.kksystem.base.classes.plugins.ExternalConfiguration;
+import kkdev.kksystem.base.constants.SystemConsts;
 
 /**
  *
@@ -16,6 +17,7 @@ public class BTConfig  extends ExternalConfiguration {
         BlueCove
     }
     
+    public String FeatureID=SystemConsts.KK_BASE_FEATURES_BLUETOOTH_UID;
     public AdapterTypes BTAdapter;
     public ServicesConfig[] BTServicesMapping;
 
