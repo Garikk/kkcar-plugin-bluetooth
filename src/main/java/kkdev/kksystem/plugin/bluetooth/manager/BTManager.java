@@ -3,6 +3,7 @@ package kkdev.kksystem.plugin.bluetooth.manager;
 import kkdev.kksystem.base.classes.base.PinBaseData;
 import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
 import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.plugins.PluginMessage;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerBase;
 import kkdev.kksystem.base.constants.PluginConsts;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA;
@@ -58,16 +59,16 @@ public class BTManager extends PluginManagerBase {
         this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,ObjDat);
     }
     
-    public void ReceivePIN(String PinName,Object PinData)
+    public void ReceivePIN(PluginMessage Msg)
     {
-        if (PinName==KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA)
+        if (Msg.PinName.equals(KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA))
         {
-            PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)PinData;
+            PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)Msg.PinData;
             Adapter.SendJsonData(PIN.Tag,(String)PIN.Value);
         }
-        else if (PinName==KK_PLUGIN_BASE_CONTROL_DATA)
+        else if (Msg.PinName.equals(KK_PLUGIN_BASE_CONTROL_DATA))
         {
-             BTSettingsMenu.ProcessControlPIN((PinControlData)PinData);
+             BTSettingsMenu.ProcessControlPIN((PinControlData)Msg.PinData);
         }
         
     }
