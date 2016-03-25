@@ -30,7 +30,6 @@ public class BTManager extends PluginManagerBase {
         //
         ConfigAndInitHW();
         //
-        
     }
     public void Start() {
         BTSettingsMenu.InitBTMenu();
@@ -45,8 +44,13 @@ public class BTManager extends PluginManagerBase {
             }
             Adapter.StartAdapter(this);
         }
-       
     }
+    
+    public void MGMT_ChangeDiscoverState(boolean Discover)
+    {
+        Adapter.SetDiscoverableStatus(Discover);
+    }
+    
     
     public void BT_ReceiveData(String Tag, String Data)
     {

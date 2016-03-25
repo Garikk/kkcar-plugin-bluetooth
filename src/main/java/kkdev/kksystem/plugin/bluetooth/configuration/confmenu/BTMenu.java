@@ -5,6 +5,7 @@
  */
 package kkdev.kksystem.plugin.bluetooth.configuration.confmenu;
 
+import static java.lang.System.out;
 import kkdev.kksystem.base.classes.controls.PinControlData;
 import static kkdev.kksystem.base.classes.controls.PinControlData.DEF_BTN_BACK;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
@@ -43,7 +44,7 @@ public class BTMenu {
         MenuItems[0].ItemCommand = "DISC " + !Discover;
         //
         MenuItems[1] = new MKMenuItem();
-        MenuItems[1].DisplayName = "==PIN=";
+        MenuItems[1].DisplayName = "=====";
         MenuItems[1].ItemCommand = "";
     }
 
@@ -51,12 +52,13 @@ public class BTMenu {
 
         @Override
         public void SelectedItem(String ItemCMD) {
-            if ("DISC True".equals(ItemCMD)) {
+            if ("DISC true".equals(ItemCMD)) {
                 Discover = true;
-            } else if ("DISC False".equals(ItemCMD)) {
+                Global.PM.MGMT_ChangeDiscoverState(Discover);
+            } else if ("DISC false".equals(ItemCMD)) {
                 Discover = false;
+                Global.PM.MGMT_ChangeDiscoverState(Discover);
             }
-
             //
             UpdateMenuItems();
             //
@@ -69,5 +71,6 @@ public class BTMenu {
         MMaker.ProcessControlCommand(ControlData.ControlID);
 
     }
+    
 
 }

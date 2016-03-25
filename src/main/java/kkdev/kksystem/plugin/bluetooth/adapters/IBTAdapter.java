@@ -16,6 +16,7 @@ import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 public interface IBTAdapter {
     public void StartAdapter(BTManager BTM);
     public void StopAdaper();
+    public void SetDiscoverableStatus(boolean Discover);
     public boolean State();
     public void RegisterService(ServicesConfig SC);
     public void SendJsonData(String ServiceTag,String Json);

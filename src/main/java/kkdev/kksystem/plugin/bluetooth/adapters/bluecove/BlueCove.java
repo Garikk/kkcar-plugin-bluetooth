@@ -10,7 +10,6 @@ import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.bluetooth.BluetoothStateException;
@@ -26,7 +25,6 @@ import javax.microedition.io.StreamConnectionNotifier;
 import javax.obex.Operation;
 import javax.obex.ServerRequestHandler;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
-import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 import kkdev.kksystem.plugin.bluetooth.services.IBTService;
@@ -129,7 +127,6 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     private void InitLocalDevices() {
         for (ServicesConfig SC : ServicesMapping) {
             if (!SC.ServerMode) {
-
                 if (SC.DevType == ServicesConfig.BT_ServiceType.RFCOMM) {
                     out.println("[BT][INF] SVC CONN " + SC.DevAddr);
                     IBTService Svc = null;
@@ -139,7 +136,6 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
                     out.println("[BT][INF] Not supported service type detected " + SC.Name);
                 }
             }
-
         }
     }
 
@@ -233,12 +229,32 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
        for (BTConnectionWorker CN:ConnectionWorker)
        {
            CN.SendData(ServiceTag,Json);
+           
        }
     }
 
-
+    @Override
+    public void SetDiscoverableStatus(boolean Discover) {
+        if (LD==null)
+            return;
+        
+        try {
+            if (Discover)
+            {
+                LD.setDiscoverable(DiscoveryAgent.GIAC);
+            }
+            else
+            {
+                LD.setDiscoverable(DiscoveryAgent.NOT_DISCOVERABLE);
+            }
+            
+            
+            
+        } catch (BluetoothStateException ex) {
+            Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
-
 //    private void ConnectLocalDevicesAfterDiscovery() throws BluetoothStateException {
 
 /*
