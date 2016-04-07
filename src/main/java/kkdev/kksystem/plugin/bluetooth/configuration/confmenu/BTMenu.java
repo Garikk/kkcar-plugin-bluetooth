@@ -24,7 +24,7 @@ public class BTMenu {
     MKMenuItem[] MenuItems;
 
     public void InitBTMenu() {
-        MMaker = new MenuMaker(Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), null, Global.PM.Connector, MenuItemExec);
+        MMaker = new MenuMaker(Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT),SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.Connector, MenuItemExec);
         //
         UpdateMenuItems();
         //
