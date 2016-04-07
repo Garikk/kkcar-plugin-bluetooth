@@ -25,7 +25,7 @@ public class BTManager extends PluginManagerBase {
     public void Init(KKPlugin Conn) {
         this.Connector = Conn;
         //Init Adapters and start scan and connect
-        this.CurrentFeature = PluginSettings.MainConfiguration.FeatureID;
+        this.CurrentFeature.put(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,PluginSettings.MainConfiguration.FeatureID);
         BTSettingsMenu=new BTMenu();
         //
         ConfigAndInitHW();

@@ -10,6 +10,7 @@ import kkdev.kksystem.base.classes.controls.PinControlData;
 import static kkdev.kksystem.base.classes.controls.PinControlData.DEF_BTN_BACK;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker;
+import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.plugin.bluetooth.Global;
 
 /**
@@ -23,7 +24,7 @@ public class BTMenu {
     MKMenuItem[] MenuItems;
 
     public void InitBTMenu() {
-        MMaker = new MenuMaker(Global.PM.CurrentFeature, null, Global.PM.Connector, MenuItemExec);
+        MMaker = new MenuMaker(Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), null, Global.PM.Connector, MenuItemExec);
         //
         UpdateMenuItems();
         //
