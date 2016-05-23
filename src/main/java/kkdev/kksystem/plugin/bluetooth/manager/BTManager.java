@@ -21,9 +21,11 @@ public class BTManager extends PluginManagerBase {
 
     private IBTAdapter Adapter;
     private BTMenu BTSettingsMenu;
+    KKPlugin LocalConnector;
 
     public void Init(KKPlugin Conn) {
         this.Connector = Conn;
+        LocalConnector=Conn;
         //Init Adapters and start scan and connect
         this.CurrentFeature.put(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,PluginSettings.MainConfiguration.FeatureID);
         BTSettingsMenu=new BTMenu();
@@ -32,7 +34,7 @@ public class BTManager extends PluginManagerBase {
         //
     }
     public void Start() {
-        BTSettingsMenu.InitBTMenu();
+        BTSettingsMenu.InitBTMenu(LocalConnector.GetUtils());
     }
     private void ConfigAndInitHW() {
         //Init HW adapter

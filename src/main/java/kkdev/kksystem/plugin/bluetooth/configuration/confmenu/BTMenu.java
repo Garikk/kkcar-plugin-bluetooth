@@ -11,6 +11,7 @@ import static kkdev.kksystem.base.classes.controls.PinControlData.DEF_BTN_BACK;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker;
 import kkdev.kksystem.base.constants.SystemConsts;
+import kkdev.kksystem.base.interfaces.IKKControllerUtils;
 import kkdev.kksystem.plugin.bluetooth.Global;
 
 /**
@@ -23,8 +24,8 @@ public class BTMenu {
     boolean Discover = true;
     MKMenuItem[] MenuItems;
 
-    public void InitBTMenu() {
-        MMaker = new MenuMaker(Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT),SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.Connector, MenuItemExec);
+    public void InitBTMenu(IKKControllerUtils Utils) {
+        MMaker = new MenuMaker(Utils,Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT),SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.Connector, MenuItemExec);
         //
         UpdateMenuItems();
         //
