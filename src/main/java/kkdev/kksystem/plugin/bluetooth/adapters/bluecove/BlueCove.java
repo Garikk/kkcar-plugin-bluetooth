@@ -157,6 +157,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     DiscoveryListener BTDiscovery = new DiscoveryListener() {
 
         public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
+            System.out.println("[BT]  Discovered " + btDevice);
             //add the device to the vector
             if (!AvailableDevices.containsKey(btDevice.getBluetoothAddress())) {
                 AvailableDevices.put(btDevice.getBluetoothAddress(), btDevice);
@@ -166,6 +167,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
         @Override
         public void servicesDiscovered(int i, ServiceRecord[] srs) {
+            System.out.println("[BT] Disc Comp " + i);
             //   if (servRecord != null && servRecord.length > 0) {
             //  connectionURL = servRecord[0].getConnectionURL(0, false);
             //
@@ -195,6 +197,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
         @Override
         public void inquiryCompleted(int i) {
+             System.out.println("[BT] Inc Comp " + i);
           //  for (RemoteDevice RD : AvailableDevices.values()) {
           //      out.println("[BT] Found devices: " + RD.getBluetoothAddress());
           //  }
@@ -241,10 +244,12 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         try {
             if (Discover)
             {
+                System.out.println("[BT] Discover ON");
                 LD.setDiscoverable(DiscoveryAgent.GIAC);
-            }
+                            }
             else
             {
+                System.out.println("[BT] Discover OFF");
                 LD.setDiscoverable(DiscoveryAgent.NOT_DISCOVERABLE);
             }
             

@@ -35,7 +35,7 @@ public class BTConnectionWorker {
 
     public BTConnectionWorker(IServiceCallback SvcCallback, String Name, String ServiceTag, StreamConnection Connection) {
         try {
-            //out.println("[BT] Received BTEXA connection for " + Name + " service");
+            out.println("[BT] Received BTEXA connection for " + Name + " service");
             Conn = Connection;
 
             svcTag=ServiceTag;

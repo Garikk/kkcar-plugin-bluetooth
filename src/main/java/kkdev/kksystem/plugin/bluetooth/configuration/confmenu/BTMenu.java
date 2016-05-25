@@ -38,9 +38,9 @@ public class BTMenu {
         MenuItems = new MKMenuItem[2];
         MenuItems[0] = new MKMenuItem();
         if (Discover) {
-            MenuItems[0].DisplayName = "Discoverable On";
+            MenuItems[0].DisplayName = "Discover On";
         } else {
-            MenuItems[0].DisplayName = "Discoverable Off";
+            MenuItems[0].DisplayName = "Discover Off";
         }
         //
         MenuItems[0].ItemCommand = "DISC " + !Discover;
