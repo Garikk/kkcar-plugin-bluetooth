@@ -113,7 +113,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
                                 CR.clear();
                             }
                         } catch (IOException ex) {
-                            Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
+                           System.out.println("[BT][ERR] " + SC.Name);
                         }
                         System.out.println("[BT][INF] STOP " + SC.Name);
                     }
@@ -168,26 +168,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         @Override
         public void servicesDiscovered(int i, ServiceRecord[] srs) {
             System.out.println("[BT] Disc Comp " + i);
-            //   if (servRecord != null && servRecord.length > 0) {
-            //  connectionURL = servRecord[0].getConnectionURL(0, false);
-            //
-     ///       ServicesConfig Conf = ServicesMapping.get(srs[0].getHostDevice().getBluetoothAddress());
-      //      for (ServiceRecord SR : srs) {
-      //          out.println("[BT] Found SVC: " + SR.getAttributeValue(0x0001) + " " + SR.getConnectionURL(0, false));
-
-       //     }
-
-            /*
-                if (connectionURL != null) {
-                    IBTService Svc = null;
-                    if (Conf.DevType == ServicesConfig.BT_ServiceType.RFCOMM) {
-                        Svc = new BTServiceRFCOMM();
-                        Svc.ConnectService(connectionURL, this);
-                    }
-
-                    BTServices.put(Dev.getBluetoothAddress(), Svc);
-                }
-             */
+         
         }
 
         @Override
@@ -198,17 +179,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         @Override
         public void inquiryCompleted(int i) {
              System.out.println("[BT] Inc Comp " + i);
-          //  for (RemoteDevice RD : AvailableDevices.values()) {
-          //      out.println("[BT] Found devices: " + RD.getBluetoothAddress());
-          //  }
-
-           // try {
-              //  ConnectLocalDevicesAfterDiscovery();
-
-           // } catch (BluetoothStateException ex) {
-           //     Logger.getLogger(BlueCove.class
-            //            .getName()).log(Level.SEVERE, null, ex);
-           // }
+         
         }
     };
 
@@ -242,56 +213,17 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
             return;
         
         try {
-            if (Discover)
-            {
+            if (Discover) {
                 System.out.println("[BT] Discover ON");
                 LD.setDiscoverable(DiscoveryAgent.GIAC);
-                            }
-            else
-            {
+            } else {
                 System.out.println("[BT] Discover OFF");
                 LD.setDiscoverable(DiscoveryAgent.NOT_DISCOVERABLE);
             }
-            
-            
-            
+
+
         } catch (BluetoothStateException ex) {
             Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
-//    private void ConnectLocalDevicesAfterDiscovery() throws BluetoothStateException {
-
-/*
-        UUID[] uuidSet;
-        for (RemoteDevice Dev : AvailableDevices.values()) {
-            if (ServicesMapping.containsKey(Dev.getBluetoothAddress())) {
-                ServicesConfig Conf = ServicesMapping.get(Dev.getBluetoothAddress());
-                //
-                uuidSet = new UUID[Conf.ServicesUUID_long.length + Conf.ServicesUUID_String.length];
-                //
-                for (int i = 0; i < Conf.ServicesUUID_String.length; i++) {
-                    uuidSet[i] = new UUID(Conf.ServicesUUID_String[i], false);
-                }
-                for (int i = Conf.ServicesUUID_String.length; i < Conf.ServicesUUID_long.length + Conf.ServicesUUID_String.length; i++) {
-                    uuidSet[i] = new UUID(Conf.ServicesUUID_long[i]);
-                }
-                //
-                StartServicesSearch(uuidSet, Dev);
-
-            }
-        }
- */
-   // }
-/*
-    private void StartDevicesSearch() throws BluetoothStateException {
-        DiscoveryAgent agent = LD.getDiscoveryAgent();
-        agent.startInquiry(DiscoveryAgent.GIAC, BTDiscovery);
-    }
-
-    private void StartServicesSearch(UUID[] uuidSet, RemoteDevice Dev) throws BluetoothStateException {
-        DiscoveryAgent agent = LD.getDiscoveryAgent();
-        agent.searchServices(null, uuidSet, Dev, BTDiscovery);
-
-    }
-    */

@@ -1,5 +1,7 @@
 package kkdev.kksystem.plugin.bluetooth.manager;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import kkdev.kksystem.base.classes.base.PinBaseData;
 import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
 import kkdev.kksystem.base.classes.controls.PinControlData;
@@ -19,6 +21,8 @@ import kkdev.kksystem.plugin.bluetooth.configuration.confmenu.BTMenu;
 
 public class BTManager extends PluginManagerBase {
 
+    String BT_PINFILE="btpin";
+    
     private IBTAdapter Adapter;
     private BTMenu BTSettingsMenu;
     KKPlugin LocalConnector;
@@ -48,8 +52,9 @@ public class BTManager extends PluginManagerBase {
         }
     }
     
-    public void MGMT_ChangeDiscoverState(boolean Discover)
+    public void MGMT_ChangeDiscoverState(boolean Discover,String PIN)
     {
+        SetPairingPIN(PIN);
         Adapter.SetDiscoverableStatus(Discover);
     }
     
@@ -77,6 +82,24 @@ public class BTManager extends PluginManagerBase {
              BTSettingsMenu.ProcessControlPIN((PinControlData)Msg.PinData);
         }
         
+    }
+    
+    private void SetPairingPIN(String PIN) 
+    {
+        try
+        {
+            FileWriter fw;
+            fw = new FileWriter(SystemConsts.KK_BASE_CONFPATH + "/" + BT_PINFILE);
+            fw.write("* " +PIN);
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException ex)
+        {
+            System.out.println("[BT][ERR] Error on create/update PINFILE");
+        }
+
+    
     }
     
 

@@ -34,7 +34,7 @@ public class BTServiceRFCOMM implements IBTService {
             public void run() {
                 while (!Stop) {
                     try {
-                        out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL);
+                        //out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL);
                         ServiceURL = ConnectionURL;
                         StreamConnection streamConnection = null;
                         streamConnection = (StreamConnection) Connector.open(ServiceURL);
@@ -50,7 +50,7 @@ public class BTServiceRFCOMM implements IBTService {
                             streamConnection.close();
                         }
                     } catch (IOException ex) {
-                       out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL + " DISABLED");    
+                       out.println("[BT][INF] Service " +Tag + " " +ConnectionURL + " DISABLED (Device not found or error)");    
                       //  Logger.getLogger(BTServiceRFCOMM.class.getName()).log(Level.SEVERE, null, ex);
                         Stop=true;
                     }
