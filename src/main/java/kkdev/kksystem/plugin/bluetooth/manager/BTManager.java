@@ -5,6 +5,8 @@ import java.io.IOException;
 import kkdev.kksystem.base.classes.base.PinBaseData;
 import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
 import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.notify.NotifyConsts;
+import kkdev.kksystem.base.classes.notify.NotifyConsts.NOTIFY_METHOD;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerBase;
 import kkdev.kksystem.base.constants.PluginConsts;
@@ -56,6 +58,12 @@ public class BTManager extends PluginManagerBase {
     {
         SetPairingPIN(PIN);
         Adapter.SetDiscoverableStatus(Discover);
+        NOTIFY_METHOD[] NM=new NOTIFY_METHOD[1];
+        NM[0]=NOTIFY_METHOD.VOICE;
+        if (Discover)
+            this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO,NM, "Bluetooth is visible");
+        else
+            this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO,NM, "Bluetooth is invisible");
     }
     
     

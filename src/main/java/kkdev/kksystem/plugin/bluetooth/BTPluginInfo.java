@@ -45,8 +45,9 @@ public class BTPluginInfo  implements IPluginInfoRequest {
     }
     private String[] GetMyTransmitPinInfo(){
     
-        String[] Ret=new String[1];
+        String[] Ret=new String[2];
         Ret[0] = PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA;
+         Ret[1] = PluginConsts.KK_PLUGIN_BASE_NOTIFY_DATA;
 
 
 
