@@ -30,7 +30,7 @@ public class BTMenu {
     MKMenuItem[] MenuItems;
 
     public void InitBTMenu(IKKControllerUtils Utils) {
-        MMaker = new MenuMaker(Utils, Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.Connector, MenuItemExec);
+        MMaker = new MenuMaker(Utils, Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.Connector, MenuItemExec,true);
 //
      MakeDiscoverPIN();
 //
@@ -81,10 +81,7 @@ public class BTMenu {
 
         @Override
         public void ActiveMenuElement(String ItemText, String ItemCMD) {
-            NotifyConsts.NOTIFY_METHOD[] NM = new NotifyConsts.NOTIFY_METHOD[1];
-            NM[0] = NotifyConsts.NOTIFY_METHOD.VOICE;
-            Global.PM.NOTIFY_SendNotifyMessage(Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, ItemText);
-         
+          //not used         
         }
 
     };
