@@ -24,17 +24,17 @@ public final class KKPlugin extends KKPluginBase {
     }
 
     @Override
-    public void PluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID) {
-        super.PluginInit(BaseConnector, GlobalConfUID);
-        SysUtils=BaseConnector.SystemUtilities();
-        PluginSettings.InitConfig(this.GlobalConfID, this.PluginInfo.GetPluginInfo().PluginUUID);
+    public void pluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID) {
+        super.pluginInit(BaseConnector, GlobalConfUID);
+        SysUtils=BaseConnector.systemUtilities();
+        PluginSettings.InitConfig(this.globalConfID, this.pluginInfo.getPluginInfo().PluginUUID);
         Global.PM.Init(this);
     }
 
     
     @Override
-    public PluginMessage ExecutePin(PluginMessage Pin) {
-        super.ExecutePin(Pin);
+    public PluginMessage executePin(PluginMessage Pin) {
+        super.executePin(Pin);
        // System.out.println("[BT][DEBUG] " +Pin.PinData );
         Global.PM.ReceivePIN(Pin);
         return null;
@@ -42,8 +42,8 @@ public final class KKPlugin extends KKPluginBase {
     
     
      @Override
-    public void PluginStart() {
-         super.PluginStart();
+    public void pluginStart() {
+         super.pluginStart();
          Global.PM.Start();
     }
     

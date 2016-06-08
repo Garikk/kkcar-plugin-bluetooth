@@ -25,12 +25,12 @@ public abstract class PluginSettings {
         
         
        // System.out.println("[BT][CONFIG] Load configuration");
-        MainConfiguration=(BTConfig)Settings.LoadConfig();
+        MainConfiguration=(BTConfig)Settings.loadConfig();
 
         if (MainConfiguration == null) {
             System.out.println("[BT][CONFIG] Error Load configuration, try create default config");
-            Settings.SaveConfig(kk_DefaultConfig.MakeDefaultConfig());
-            MainConfiguration=(BTConfig)Settings.LoadConfig();
+            Settings.saveConfig(kk_DefaultConfig.MakeDefaultConfig());
+            MainConfiguration=(BTConfig)Settings.loadConfig();
         }
         if (MainConfiguration == null) {
             System.out.println("[BT][CONFIG] Load configuration, fatal");

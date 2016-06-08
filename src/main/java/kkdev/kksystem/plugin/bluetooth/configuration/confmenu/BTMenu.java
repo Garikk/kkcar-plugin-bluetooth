@@ -30,39 +30,39 @@ public class BTMenu {
     MKMenuItem[] MenuItems;
 
     public void InitBTMenu(IKKControllerUtils Utils) {
-        MMaker = new MenuMaker(Utils, Global.PM.CurrentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.Connector, MenuItemExec,true);
+        MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.connector, MenuItemExec,true);
 //
      MakeDiscoverPIN();
 //
         UpdateMenuItems();
         //
-        MMaker.AddMenuItems(MenuItems);
+        MMaker.addMenuItems(MenuItems);
         //
-        MMaker.ShowMenu();
+        MMaker.showMenu();
     }
 
     private void UpdateMenuItems() {
         MenuItems = new MKMenuItem[2];
         MenuItems[0] = new MKMenuItem();
-        MenuItems[0].DisplayName = "Visibility";
-        MenuItems[0].ItemCommand = KK_MENUMAKER_SPECIALCMD_SUBMENU + " DISC on";//"DISC " + !Discover;
-        MenuItems[0].ItemBackFromSubItemCommand="DISC off";
-        MenuItems[0].SubItems=new MKMenuItem[2];
-        MenuItems[0].SubItems[0]=new MKMenuItem();
-        MenuItems[0].SubItems[0].DisplayName="BT Visible";
+        MenuItems[0].displayName = "Visibility";
+        MenuItems[0].itemCommand = KK_MENUMAKER_SPECIALCMD_SUBMENU + " DISC on";//"DISC " + !Discover;
+        MenuItems[0].itemBackFromSubItemCommand="DISC off";
+        MenuItems[0].subItems=new MKMenuItem[2];
+        MenuItems[0].subItems[0]=new MKMenuItem();
+        MenuItems[0].subItems[0].displayName="BT Visible";
         //
-        MenuItems[0].SubItems[1]=new MKMenuItem();
-        MenuItems[0].SubItems[1].DisplayName="PIN: " + DiscoverPin;
+        MenuItems[0].subItems[1]=new MKMenuItem();
+        MenuItems[0].subItems[1].displayName="PIN: " + DiscoverPin;
         //
         MenuItems[1] = new MKMenuItem();
-        MenuItems[1].DisplayName = "Devices";
-        MenuItems[1].ItemCommand = "";
+        MenuItems[1].displayName = "Devices";
+        MenuItems[1].itemCommand = "";
     }
 
     private MenuMaker.IMenuMakerItemSelected MenuItemExec = new MenuMaker.IMenuMakerItemSelected() {
 
         @Override
-        public void SelectedItem(String ItemCMD) {
+        public void selectedItem(String ItemCMD) {
             if ("DISC on".equals(ItemCMD)) {
                 Discover = true;
                 Global.PM.MGMT_ChangeDiscoverState(Discover,DiscoverPin);
@@ -75,19 +75,19 @@ public class BTMenu {
         }
 
         @Override
-        public void StepBack(String ItemCMD) {
-            SelectedItem(ItemCMD);
+        public void stepBack(String ItemCMD) {
+            selectedItem(ItemCMD);
         }
 
         @Override
-        public void ActiveMenuElement(String ItemText, String ItemCMD) {
+        public void activeMenuElement(String ItemText, String ItemCMD) {
           //not used         
         }
 
     };
 
     public void ProcessControlPIN(PinControlData ControlData) {
-        MMaker.ProcessControlCommand(ControlData.ControlID);
+        MMaker.processControlCommand(ControlData.controlID);
 
     }
     

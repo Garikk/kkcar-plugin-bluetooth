@@ -18,7 +18,7 @@ import kkdev.kksystem.base.constants.PluginConsts;
  */
 public class BTPluginInfo  implements IPluginInfoRequest {
     @Override
-    public PluginInfo GetPluginInfo()
+    public PluginInfo getPluginInfo()
     {
         PluginInfo Ret=new PluginInfo();
         

@@ -30,10 +30,10 @@ public class BTManager extends PluginManagerBase {
     KKPlugin LocalConnector;
 
     public void Init(KKPlugin Conn) {
-        this.Connector = Conn;
+        this.connector = Conn;
         LocalConnector=Conn;
         //Init Adapters and start scan and connect
-        this.CurrentFeature.put(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,PluginSettings.MainConfiguration.FeatureID);
+        this.currentFeature.put(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,PluginSettings.MainConfiguration.FeatureID);
         BTSettingsMenu=new BTMenu();
         //
         ConfigAndInitHW();
@@ -71,9 +71,9 @@ public class BTManager extends PluginManagerBase {
     {
         PinBaseDataTaggedObj ObjDat;
         ObjDat=new PinBaseDataTaggedObj();
-        ObjDat.DataType=PinBaseData.BASE_DATA_TYPE.TAGGED_OBJ;
-        ObjDat.Tag=Tag;
-        ObjDat.Value=Data;
+        ObjDat.dataType=PinBaseData.BASE_DATA_TYPE.TAGGED_OBJ;
+        ObjDat.tag=Tag;
+        ObjDat.value=Data;
         
         this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,ObjDat);
     }
@@ -83,7 +83,7 @@ public class BTManager extends PluginManagerBase {
         if (Msg.PinName.equals(KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA))
         {
             PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)Msg.PinData;
-            Adapter.SendJsonData(PIN.Tag,(String)PIN.Value);
+            Adapter.SendJsonData(PIN.tag,(String)PIN.value);
         }
         else if (Msg.PinName.equals(KK_PLUGIN_BASE_CONTROL_DATA))
         {
