@@ -5,16 +5,12 @@
  */
 package kkdev.kksystem.plugin.bluetooth.configuration.confmenu;
 
-import static java.lang.System.out;
 import java.util.Random;
 import kkdev.kksystem.base.classes.controls.PinControlData;
-import static kkdev.kksystem.base.classes.controls.PinControlData.DEF_BTN_BACK;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker;
 import static kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker.KK_MENUMAKER_SPECIALCMD_SUBMENU;
-import kkdev.kksystem.base.classes.notify.NotifyConsts;
 import kkdev.kksystem.base.constants.SystemConsts;
-import static kkdev.kksystem.base.constants.SystemConsts.KK_BASE_FEATURES_SYSTEM_UID;
 import kkdev.kksystem.base.interfaces.IKKControllerUtils;
 import kkdev.kksystem.plugin.bluetooth.Global;
 
