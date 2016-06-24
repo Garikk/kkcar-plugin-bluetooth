@@ -2,9 +2,9 @@ package kkdev.kksystem.plugin.bluetooth.manager;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import kkdev.kksystem.base.classes.base.PinBaseData;
-import kkdev.kksystem.base.classes.base.PinBaseDataTaggedObj;
-import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.base.PinDataTaggedObj;
+import kkdev.kksystem.base.classes.base.PinDataTaggedString;
+import kkdev.kksystem.base.classes.controls.PinDataControl;
 import kkdev.kksystem.base.classes.notify.NotifyConsts;
 import kkdev.kksystem.base.classes.notify.NotifyConsts.NOTIFY_METHOD;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
@@ -69,25 +69,24 @@ public class BTManager extends PluginManagerBase {
     
     public void BT_ReceiveData(String Tag, String Data)
     {
-        PinBaseDataTaggedObj ObjDat;
-        ObjDat=new PinBaseDataTaggedObj();
-        ObjDat.dataType=PinBaseData.BASE_DATA_TYPE.TAGGED_OBJ;
+        PinDataTaggedString ObjDat;
+        ObjDat=new PinDataTaggedString();
         ObjDat.tag=Tag;
         ObjDat.value=Data;
         
-        this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,ObjDat);
+        this.BASE_SendPluginMessage(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,SystemConsts.KK_BASE_UICONTEXT_DEFAULT,PluginConsts.KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA,ObjDat);
     }
     
     public void ReceivePIN(PluginMessage Msg)
     {
-        if (Msg.PinName.equals(KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA))
+        if (Msg.pinName.equals(KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA))
         {
-            PinBaseDataTaggedObj PIN=(PinBaseDataTaggedObj)Msg.PinData;
+            PinDataTaggedObj PIN=(PinDataTaggedObj)Msg.getPinData();
             Adapter.SendJsonData(PIN.tag,(String)PIN.value);
         }
-        else if (Msg.PinName.equals(KK_PLUGIN_BASE_CONTROL_DATA))
+        else if (Msg.pinName.equals(KK_PLUGIN_BASE_CONTROL_DATA))
         {
-             BTSettingsMenu.ProcessControlPIN((PinControlData)Msg.PinData);
+             BTSettingsMenu.ProcessControlPIN((PinDataControl)Msg.getPinData());
         }
         
     }

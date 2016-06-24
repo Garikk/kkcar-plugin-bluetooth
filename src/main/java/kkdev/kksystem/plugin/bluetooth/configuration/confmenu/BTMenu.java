@@ -6,7 +6,7 @@
 package kkdev.kksystem.plugin.bluetooth.configuration.confmenu;
 
 import java.util.Random;
-import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.controls.PinDataControl;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker;
 import static kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker.KK_MENUMAKER_SPECIALCMD_SUBMENU;
@@ -82,7 +82,7 @@ public class BTMenu {
 
     };
 
-    public void ProcessControlPIN(PinControlData ControlData) {
+    public void ProcessControlPIN(PinDataControl ControlData) {
         MMaker.processControlCommand(ControlData.controlID);
 
     }
