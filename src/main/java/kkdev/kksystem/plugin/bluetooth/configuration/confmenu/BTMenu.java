@@ -26,7 +26,7 @@ public class BTMenu {
     MKMenuItem[] MenuItems;
 
     public void InitBTMenu(IKKControllerUtils Utils) {
-        MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.connector, MenuItemExec,true);
+        MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.getPluginConnector(), MenuItemExec,true);
 //
      MakeDiscoverPIN();
 //
