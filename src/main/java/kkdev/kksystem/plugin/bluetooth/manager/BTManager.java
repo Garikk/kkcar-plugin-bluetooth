@@ -40,7 +40,7 @@ public class BTManager extends PluginManagerBase {
         //
     }
     public void Start() {
-        BTSettingsMenu.InitBTMenu(LocalConnector.GetUtils());
+        BTSettingsMenu.initBTMenu(LocalConnector.GetUtils());
     }
     private void ConfigAndInitHW() {
         //Init HW adapter
@@ -86,6 +86,7 @@ public class BTManager extends PluginManagerBase {
         }
         else if (Msg.pinName.equals(KK_PLUGIN_BASE_CONTROL_DATA))
         {
+           if (Msg.FeatureID.equals(PluginSettings.MainConfiguration.FeatureID))
              BTSettingsMenu.ProcessControlPIN((PinDataControl)Msg.getPinData());
         }
         

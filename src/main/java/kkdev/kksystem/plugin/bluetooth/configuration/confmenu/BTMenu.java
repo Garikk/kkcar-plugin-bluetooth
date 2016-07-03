@@ -25,19 +25,19 @@ public class BTMenu {
     String DiscoverPin="----";
     MKMenuItem[] MenuItems;
 
-    public void InitBTMenu(IKKControllerUtils Utils) {
+    public void initBTMenu(IKKControllerUtils Utils) {
         MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.getPluginConnector(), MenuItemExec,true);
 //
      MakeDiscoverPIN();
 //
-        UpdateMenuItems();
+        updateMenuItems();
         //
         MMaker.addMenuItems(MenuItems);
         //
         MMaker.showMenu();
     }
 
-    private void UpdateMenuItems() {
+    private void updateMenuItems() {
         MenuItems = new MKMenuItem[2];
         MenuItems[0] = new MKMenuItem();
         MenuItems[0].displayName = "Visibility";
