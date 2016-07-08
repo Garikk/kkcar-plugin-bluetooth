@@ -22,13 +22,13 @@ public class BTMenu {
 
     MenuMaker MMaker;
     boolean Discover = false;
-    String DiscoverPin="----";
+    String DiscoverPin = "----";
     MKMenuItem[] MenuItems;
 
     public void initBTMenu(IKKControllerUtils Utils) {
-        MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.getPluginConnector(), MenuItemExec,true);
+        MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.getPluginConnector(), MenuItemExec, true);
 //
-     MakeDiscoverPIN();
+        makeDiscoverPIN();
 //
         updateMenuItems();
         //
@@ -42,13 +42,13 @@ public class BTMenu {
         MenuItems[0] = new MKMenuItem();
         MenuItems[0].displayName = "Visibility";
         MenuItems[0].itemCommand = KK_MENUMAKER_SPECIALCMD_SUBMENU + " DISC on";//"DISC " + !Discover;
-        MenuItems[0].itemBackFromSubItemCommand="DISC off";
-        MenuItems[0].subItems=new MKMenuItem[2];
-        MenuItems[0].subItems[0]=new MKMenuItem();
-        MenuItems[0].subItems[0].displayName="BT Visible";
+        MenuItems[0].itemBackFromSubItemCommand = "DISC off";
+        MenuItems[0].subItems = new MKMenuItem[2];
+        MenuItems[0].subItems[0] = new MKMenuItem();
+        MenuItems[0].subItems[0].displayName = "BT Visible";
         //
-        MenuItems[0].subItems[1]=new MKMenuItem();
-        MenuItems[0].subItems[1].displayName="PIN: " + DiscoverPin;
+        MenuItems[0].subItems[1] = new MKMenuItem();
+        MenuItems[0].subItems[1].displayName = "PIN: " + DiscoverPin;
         //
         MenuItems[1] = new MKMenuItem();
         MenuItems[1].displayName = "Devices";
@@ -61,10 +61,10 @@ public class BTMenu {
         public void selectedItem(String ItemCMD) {
             if ("DISC on".equals(ItemCMD)) {
                 Discover = true;
-                Global.PM.MGMT_ChangeDiscoverState(Discover,DiscoverPin);
+                Global.PM.MGMT_ChangeDiscoverState(Discover, DiscoverPin);
             } else if ("DISC off".equals(ItemCMD)) {
                 Discover = false;
-                Global.PM.MGMT_ChangeDiscoverState(Discover,DiscoverPin);
+                Global.PM.MGMT_ChangeDiscoverState(Discover, DiscoverPin);
             }
             //
             // 
@@ -77,20 +77,18 @@ public class BTMenu {
 
         @Override
         public void activeMenuElement(String ItemText, String ItemCMD) {
-          //not used         
+            //not used         
         }
 
     };
 
-    public void ProcessControlPIN(PinDataControl ControlData) {
+    public void processControlPIN(PinDataControl ControlData) {
         MMaker.processControlCommand(ControlData.controlID);
 
     }
-    
 
-    private void MakeDiscoverPIN()
-    {
-       DiscoverPin = String.valueOf((new Random()).nextInt(9999));
+    private void makeDiscoverPIN() {
+        DiscoverPin = String.valueOf((new Random()).nextInt(9999));
         while (DiscoverPin.length() < 4) {
             DiscoverPin = "0" + DiscoverPin;
         }
