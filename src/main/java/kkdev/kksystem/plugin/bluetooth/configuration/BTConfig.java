@@ -5,14 +5,14 @@
  */
 package kkdev.kksystem.plugin.bluetooth.configuration;
 
-import kkdev.kksystem.base.classes.plugins.ExternalConfiguration;
+import kkdev.kksystem.base.classes.plugins.PluginConfiguration;
 import kkdev.kksystem.base.constants.SystemConsts;
 
 /**
  *
  * @author blinov_is
  */
-public class BTConfig  extends ExternalConfiguration {
+public class BTConfig  extends PluginConfiguration {
     public enum AdapterTypes {
         BlueCove
     }
