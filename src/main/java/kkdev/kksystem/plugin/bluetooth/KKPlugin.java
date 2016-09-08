@@ -7,24 +7,24 @@ package kkdev.kksystem.plugin.bluetooth;
  */
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
 import kkdev.kksystem.base.classes.plugins.simple.KKPluginBase;
-import kkdev.kksystem.base.interfaces.IKKControllerUtils;
-import kkdev.kksystem.base.interfaces.IPluginBaseInterface;
 import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
+import kkdev.kksystem.base.interfaces.IPluginBaseConnection;
+import kkdev.kksystem.base.interfaces.IControllerUtils;
 
 /**
  *
  * @author blinov_is
  */
 public final class KKPlugin extends KKPluginBase {
-    IKKControllerUtils SysUtils;
+    IControllerUtils SysUtils;
     public KKPlugin() {
         super(new BTPluginInfo());
         Global.PM=new BTManager();
     }
 
     @Override
-    public void pluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID) {
+    public void pluginInit(IPluginBaseConnection BaseConnector, String GlobalConfUID) {
         super.pluginInit(BaseConnector, GlobalConfUID);
         SysUtils=BaseConnector.systemUtilities();
         PluginSettings.InitConfig(this.globalConfID, this.pluginInfo.getPluginInfo().PluginUUID);
@@ -47,7 +47,7 @@ public final class KKPlugin extends KKPluginBase {
          Global.PM.Start();
     }
     
-    public IKKControllerUtils GetUtils()
+    public IControllerUtils GetUtils()
     {
         return SysUtils;
     }

@@ -11,8 +11,8 @@ import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
 import kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker;
 import static kkdev.kksystem.base.classes.display.tools.menumaker.MenuMaker.KK_MENUMAKER_SPECIALCMD_SUBMENU;
 import kkdev.kksystem.base.constants.SystemConsts;
-import kkdev.kksystem.base.interfaces.IKKControllerUtils;
 import kkdev.kksystem.plugin.bluetooth.Global;
+import kkdev.kksystem.base.interfaces.IControllerUtils;
 
 /**
  *
@@ -25,7 +25,7 @@ public class BTMenu {
     String DiscoverPin = "----";
     MKMenuItem[] MenuItems;
 
-    public void initBTMenu(IKKControllerUtils Utils) {
+    public void initBTMenu(IControllerUtils Utils) {
         MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.getPluginConnector(), MenuItemExec, true);
 //
         makeDiscoverPIN();
