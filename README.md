@@ -1,4 +1,4 @@
-# kkcar-plugin-bluetooth
+# kkiot-plugin-bluetooth
 Basic bluetooth connector, use bluecove
 ===
 
