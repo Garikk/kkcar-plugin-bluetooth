@@ -1,4 +1,3 @@
 # kkiot-plugin-bluetooth
-Basic bluetooth connector, use bluecove
-===
-
+Basic bluetooth connector,
+==
