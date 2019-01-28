@@ -12,8 +12,6 @@ import java.io.InputStreamReader;
 import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.microedition.io.Connector;
-import javax.microedition.io.StreamConnection;
 import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
 import kkdev.kksystem.plugin.bluetooth.services.IBTService;
 

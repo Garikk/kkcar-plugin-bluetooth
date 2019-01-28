@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
+package kkdev.kksystem.plugin.bluetooth.adapters;
 
-    // DEPRICATED
 /**
  *
- * @author sayma_000
+ * @author sayma
  */
-public class BTConnectionWorker {
-    // DEPRICATED
+public class BTDevice {
+    public String DeviceName;
+    public String DeviceAddr;
 }

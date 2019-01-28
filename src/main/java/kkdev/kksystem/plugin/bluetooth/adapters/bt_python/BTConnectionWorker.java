@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
+package kkdev.kksystem.plugin.bluetooth.adapters.bt_python;
 
-    // DEPRICATED
 /**
  *
  * @author sayma_000
  */
 public class BTConnectionWorker {
-    // DEPRICATED
+
 }

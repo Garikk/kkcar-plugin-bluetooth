@@ -14,7 +14,8 @@ import kkdev.kksystem.base.constants.SystemConsts;
  */
 public class BTConfig  extends PluginConfiguration {
     public enum AdapterTypes {
-        BlueCove
+        BlueCove,
+        PythonAdapter
     }
     
     public String FeatureID=SystemConsts.KK_BASE_FEATURES_BLUETOOTH_UID;

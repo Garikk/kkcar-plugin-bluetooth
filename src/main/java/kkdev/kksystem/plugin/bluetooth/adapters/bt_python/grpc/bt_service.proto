@@ -1,0 +1,53 @@
+
+syntax = "proto3";
+
+message BluetoothState {
+    bool visible = 1;
+    bool enabled = 2;
+    bool error = 3;
+    string descripton = 4;
+}
+message BluetoothStateSet {
+    bool visible = 1;
+    bool enabled = 2;
+}
+
+message BTServiceResponse {
+    bool status = 1;
+    string description = 2;
+}
+
+message DiscoveredDevices {
+    message BTDevice {
+        string devicename = 1;
+        string deviceaddr = 2;
+    }
+    repeated BTDevice devices = 1;
+}
+
+message BTService {
+    string svc_uuid = 1;
+    string svc_addr = 2;
+    string svc_port = 3;
+    string svc_tag = 4;
+    bool svc_server = 5;
+}
+
+message Dummy {
+    bool dummy = 1;
+}
+
+message BTData {
+    string svc_tag = 1;
+    string str_data = 2;
+}
+
+service BTServiceApi {
+    rpc getBluetoothState(Dummy) returns (BluetoothState) {}
+    rpc setBluetoothState(BluetoothStateSet) returns (BTServiceResponse) {}
+
+    rpc registerService(BTService) returns (BTServiceResponse) {}
+
+    rpc sendData(BTData) returns (BTServiceResponse) {}
+
+}

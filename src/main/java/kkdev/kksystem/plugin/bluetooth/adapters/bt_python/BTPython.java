@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
+package kkdev.kksystem.plugin.bluetooth.adapters.bt_python;
 
 import java.io.IOException;
 import static java.lang.System.out;
@@ -23,21 +23,23 @@ import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
  *
  * @author sayma_000
  */
-public class BlueCove implements IBTAdapter, IServiceCallback {
+public class BTPython implements IBTAdapter, IServiceCallback {
 
     private boolean State = false;
     private List<Thread> BTServer;
-
-    //private HashMap<String, RemoteDevice> AvailableDevices;
+    
+    private BTGRPCConnector BTConnector;
+    private HashMap<String, String> AvailableDevices;
     private List<ServicesConfig> ServicesMapping;
     private HashMap<String, IBTService> BTServices;
-    //private LocalDevice LD;
+    private BTPython LD;
     private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
     @Override
     public void StartAdapter(BTManager MyBTM) {
-        /*
+      
+        BTConnector = new BTGRPCConnector();
         BTM = MyBTM;
         AvailableDevices = new HashMap<>();
         BTServices = new HashMap<>();
@@ -45,23 +47,16 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         //
         BTServer = new ArrayList<>();
         //
-        try {
-            //display local device address and name
-            LD = LocalDevice.getLocalDevice();
-            State = true;
-            // Init Services
-            InitServices();
-            //
-            //Init local devices
-             InitLocalDevices();
-             //
-        } catch (BluetoothStateException ex) {
-            State = false;
-            out.println("[BT][ERR]" + ex.getMessage());
-            out.println("[BT][ERR] Bluetooth adapter disabled");
-        }
-        */
-        throw new UnsupportedOperationException();
+        LD = BTConnector.getLocalDeviceInfo();
+        State = true;
+        // Init Services
+        InitServices();
+        //
+        //Init local devices
+        InitLocalDevices();
+        //
+
+        
     }
     @Override
     public void RegisterService(ServicesConfig SC) {
@@ -142,12 +137,12 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
     @Override
     public void SetDiscoverableStatus(boolean Discover) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BTConnector.setDiscoveryState(Discover);
     }
 
     @Override
     public boolean State() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return BTConnector.getDiscoveryState();
     }
 
     @Override
@@ -165,86 +160,3 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
-/*
-    ServerRequestHandler ServerBTEXA = new ServerRequestHandler() {
-        @Override
-        public int onPut(Operation op) {
-            return super.onPut(op); //To change body of generated methods, choose Tools | Templates.
-        }
-
-    };
-
-    DiscoveryListener BTDiscovery = new DiscoveryListener() {
-
-        public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
-            System.out.println("[BT]  Discovered " + btDevice);
-            //add the device to the vector
-            if (!AvailableDevices.containsKey(btDevice.getBluetoothAddress())) {
-                AvailableDevices.put(btDevice.getBluetoothAddress(), btDevice);
-            }
-
-        }
-
-        @Override
-        public void servicesDiscovered(int i, ServiceRecord[] srs) {
-            System.out.println("[BT] Disc Comp " + i);
-         
-        }
-
-        @Override
-        public void serviceSearchCompleted(int i, int i1) {
-            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void inquiryCompleted(int i) {
-             System.out.println("[BT] Inc Comp " + i);
-         
-        }
-    };
-
-    @Override
-    public boolean State() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ReceiveServiceData(String Tag, String SrcAddr, Byte[] Data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ReceiveServiceData(String Tag, String SrcAddr, String Data) {
-        BTM.BT_ReceiveData(Tag, Data);
-    }
-
-    @Override
-    public void SendJsonData(String ServiceTag, String Json) {
-       for (BTConnectionWorker CN:ConnectionWorker)
-       {
-           CN.SendData(ServiceTag,Json);
-           
-       }
-    }
-
-    @Override
-    public void SetDiscoverableStatus(boolean Discover) {
-        if (LD==null)
-            return;
-        
-        try {
-            if (Discover) {
-                System.out.println("[BT] Discover ON");
-                LD.setDiscoverable(DiscoveryAgent.GIAC);
-            } else {
-                System.out.println("[BT] Discover OFF");
-                LD.setDiscoverable(DiscoveryAgent.NOT_DISCOVERABLE);
-            }
-
-
-        } catch (BluetoothStateException ex) {
-            Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-}
-*/
