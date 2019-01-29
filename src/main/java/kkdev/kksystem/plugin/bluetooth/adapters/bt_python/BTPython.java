@@ -5,6 +5,7 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters.bt_python;
 
+import BTPython.BtService.DiscoveredDevices.BTDevice;
 import java.io.IOException;
 import static java.lang.System.out;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class BTPython implements IBTAdapter, IServiceCallback {
     private HashMap<String, String> AvailableDevices;
     private List<ServicesConfig> ServicesMapping;
     private HashMap<String, IBTService> BTServices;
-    private BTPython LD;
+    private BTDevice LD;
     private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
@@ -47,7 +48,7 @@ public class BTPython implements IBTAdapter, IServiceCallback {
         //
         BTServer = new ArrayList<>();
         //
-        LD = BTConnector.getLocalDeviceInfo();
+        //LD = BTConnector.getLocalDeviceInfo();
         State = true;
         // Init Services
         InitServices();
@@ -110,7 +111,6 @@ public class BTPython implements IBTAdapter, IServiceCallback {
             }
         }
         */
-         throw new UnsupportedOperationException();
     }
 
     private void InitLocalDevices() {

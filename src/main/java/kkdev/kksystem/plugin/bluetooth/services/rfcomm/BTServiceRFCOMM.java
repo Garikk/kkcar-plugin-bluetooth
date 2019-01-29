@@ -30,29 +30,29 @@ public class BTServiceRFCOMM implements IBTService {
 
         Thread ServiceReader = new Thread(new Runnable() {
             public void run() {
-                while (!Stop) {
-                    try {
+                //while (!Stop) {
+                   // try {
                         //out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL);
                         ServiceURL = ConnectionURL;
-                        StreamConnection streamConnection = null;
-                        streamConnection = (StreamConnection) Connector.open(ServiceURL);
-                        InputStream inStream = streamConnection.openInputStream();
-                        BufferedReader bReader2 = new BufferedReader(new InputStreamReader(inStream));
+                        //StreamConnection streamConnection = null;
+                        //streamConnection = (StreamConnection) Connector.open(ServiceURL);
+                        //InputStream inStream = streamConnection.openInputStream();
+                        //BufferedReader bReader2 = new BufferedReader(new InputStreamReader(inStream));
 
-                        while (!Stop) {
-                            String lineRead = bReader2.readLine();
-                            Callback.ReceiveServiceData(MyTag,lineRead, lineRead);
-                        }
+                        //while (!Stop) {
+                        //    String lineRead = bReader2.readLine();
+                        //    Callback.ReceiveServiceData(MyTag,lineRead, lineRead);
+                        //}
                         //
-                        if (Stop) {
-                            streamConnection.close();
-                        }
-                    } catch (IOException ex) {
-                       out.println("[BT][INF] Service " +Tag + " " +ConnectionURL + " DISABLED (Device not found or error)");    
+                       // if (Stop) {
+                        //    streamConnection.close();
+                        //}
+                   // } catch (IOException ex) {
+                   //    out.println("[BT][INF] Service " +Tag + " " +ConnectionURL + " DISABLED (Device not found or error)");    
                       //  Logger.getLogger(BTServiceRFCOMM.class.getName()).log(Level.SEVERE, null, ex);
-                        Stop=true;
-                    }
-                }
+                   //     Stop=true;
+                   // }
+               // }
 
             }
         });
