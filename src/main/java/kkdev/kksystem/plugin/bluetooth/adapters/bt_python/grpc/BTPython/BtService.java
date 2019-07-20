@@ -126,7 +126,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_BluetoothState_descriptor;
     }
@@ -217,10 +217,10 @@ public final class BtService {
       if (visible_ != false) {
         output.writeBool(1, visible_);
       }
-      if (enabled_ != false) {
+      if (enabled_) {
         output.writeBool(2, enabled_);
       }
-      if (error_ != false) {
+      if (error_) {
         output.writeBool(3, error_);
       }
       if (!getDescriptonBytes().isEmpty()) {
@@ -235,15 +235,15 @@ public final class BtService {
       if (size != -1) return size;
 
       size = 0;
-      if (visible_ != false) {
+      if (visible_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, visible_);
       }
-      if (enabled_ != false) {
+      if (enabled_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, enabled_);
       }
-      if (error_ != false) {
+      if (error_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(3, error_);
       }
@@ -398,7 +398,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.BluetoothState)
         BTPython.BtService.BluetoothStateOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_BluetoothState_descriptor;
       }
@@ -515,13 +515,13 @@ public final class BtService {
 
       public Builder mergeFrom(BTPython.BtService.BluetoothState other) {
         if (other == BTPython.BtService.BluetoothState.getDefaultInstance()) return this;
-        if (other.getVisible() != false) {
+        if (other.getVisible()) {
           setVisible(other.getVisible());
         }
-        if (other.getEnabled() != false) {
+        if (other.getEnabled()) {
           setEnabled(other.getEnabled());
         }
-        if (other.getError() != false) {
+        if (other.getError()) {
           setError(other.getError());
         }
         if (!other.getDescripton().isEmpty()) {
@@ -840,7 +840,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_BluetoothStateSet_descriptor;
     }
@@ -885,10 +885,10 @@ public final class BtService {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (visible_ != false) {
+      if (visible_) {
         output.writeBool(1, visible_);
       }
-      if (enabled_ != false) {
+      if (enabled_) {
         output.writeBool(2, enabled_);
       }
       unknownFields.writeTo(output);
@@ -900,11 +900,11 @@ public final class BtService {
       if (size != -1) return size;
 
       size = 0;
-      if (visible_ != false) {
+      if (visible_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, visible_);
       }
-      if (enabled_ != false) {
+      if (enabled_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, enabled_);
       }
@@ -1047,7 +1047,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.BluetoothStateSet)
         BTPython.BtService.BluetoothStateSetOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_BluetoothStateSet_descriptor;
       }
@@ -1158,10 +1158,10 @@ public final class BtService {
 
       public Builder mergeFrom(BTPython.BtService.BluetoothStateSet other) {
         if (other == BTPython.BtService.BluetoothStateSet.getDefaultInstance()) return this;
-        if (other.getVisible() != false) {
+        if (other.getVisible()) {
           setVisible(other.getVisible());
         }
-        if (other.getEnabled() != false) {
+        if (other.getEnabled()) {
           setEnabled(other.getEnabled());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -1387,7 +1387,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_BTServiceResponse_descriptor;
     }
@@ -1457,7 +1457,7 @@ public final class BtService {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (status_ != false) {
+      if (status_) {
         output.writeBool(1, status_);
       }
       if (!getDescriptionBytes().isEmpty()) {
@@ -1472,7 +1472,7 @@ public final class BtService {
       if (size != -1) return size;
 
       size = 0;
-      if (status_ != false) {
+      if (status_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, status_);
       }
@@ -1617,7 +1617,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.BTServiceResponse)
         BTPython.BtService.BTServiceResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_BTServiceResponse_descriptor;
       }
@@ -1728,7 +1728,7 @@ public final class BtService {
 
       public Builder mergeFrom(BTPython.BtService.BTServiceResponse other) {
         if (other == BTPython.BtService.BTServiceResponse.getDefaultInstance()) return this;
-        if (other.getStatus() != false) {
+        if (other.getStatus()) {
           setStatus(other.getStatus());
         }
         if (!other.getDescription().isEmpty()) {
@@ -2010,7 +2010,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_DiscoveredDevices_descriptor;
     }
@@ -2119,7 +2119,7 @@ public final class BtService {
           makeExtensionsImmutable();
         }
       }
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_DiscoveredDevices_BTDevice_descriptor;
       }
@@ -2372,7 +2372,7 @@ public final class BtService {
           com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
           // @@protoc_insertion_point(builder_implements:BTPython.DiscoveredDevices.BTDevice)
           BTPython.BtService.DiscoveredDevices.BTDeviceOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
           return BTPython.BtService.internal_static_BTPython_DiscoveredDevices_BTDevice_descriptor;
         }
@@ -2910,7 +2910,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.DiscoveredDevices)
         BTPython.BtService.DiscoveredDevicesOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_DiscoveredDevices_descriptor;
       }
@@ -3538,7 +3538,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_BTService_descriptor;
     }
@@ -3759,7 +3759,7 @@ public final class BtService {
       if (!getSvcTagBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, svcTag_);
       }
-      if (svcServer_ != false) {
+      if (svcServer_) {
         output.writeBool(6, svcServer_);
       }
       unknownFields.writeTo(output);
@@ -3786,7 +3786,7 @@ public final class BtService {
       if (!getSvcTagBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, svcTag_);
       }
-      if (svcServer_ != false) {
+      if (svcServer_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(6, svcServer_);
       }
@@ -3944,7 +3944,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.BTService)
         BTPython.BtService.BTServiceOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_BTService_descriptor;
       }
@@ -4087,7 +4087,7 @@ public final class BtService {
           svcTag_ = other.svcTag_;
           onChanged();
         }
-        if (other.getSvcServer() != false) {
+        if (other.getSvcServer()) {
           setSvcServer(other.getSvcServer());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -4615,7 +4615,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_Dummy_descriptor;
     }
@@ -4651,7 +4651,7 @@ public final class BtService {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (dummy_ != false) {
+      if (dummy_) {
         output.writeBool(1, dummy_);
       }
       unknownFields.writeTo(output);
@@ -4663,7 +4663,7 @@ public final class BtService {
       if (size != -1) return size;
 
       size = 0;
-      if (dummy_ != false) {
+      if (dummy_) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, dummy_);
       }
@@ -4801,7 +4801,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.Dummy)
         BTPython.BtService.DummyOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_Dummy_descriptor;
       }
@@ -4909,7 +4909,7 @@ public final class BtService {
 
       public Builder mergeFrom(BTPython.BtService.Dummy other) {
         if (other == BTPython.BtService.Dummy.getDefaultInstance()) return this;
-        if (other.getDummy() != false) {
+        if (other.getDummy()) {
           setDummy(other.getDummy());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -5115,7 +5115,7 @@ public final class BtService {
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+    public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BTPython.BtService.internal_static_BTPython_BTData_descriptor;
     }
@@ -5368,7 +5368,7 @@ public final class BtService {
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:BTPython.BTData)
         BTPython.BtService.BTDataOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
+      public static com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return BTPython.BtService.internal_static_BTPython_BTData_descriptor;
       }

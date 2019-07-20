@@ -6,13 +6,12 @@
 package kkdev.kksystem.plugin.bluetooth.adapters.bt_python;
 
 import BTPython.BtService.DiscoveredDevices.BTDevice;
-import java.io.IOException;
+
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
@@ -27,14 +26,10 @@ import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
 public class BTPython implements IBTAdapter, IServiceCallback {
 
     private boolean State = false;
-    private List<Thread> BTServer;
-    
+
     private BTGRPCConnector BTConnector;
-    private HashMap<String, String> AvailableDevices;
     private List<ServicesConfig> ServicesMapping;
-    private HashMap<String, IBTService> BTServices;
     private BTDevice LD;
-    private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
     @Override
@@ -42,11 +37,11 @@ public class BTPython implements IBTAdapter, IServiceCallback {
       
         BTConnector = new BTGRPCConnector();
         BTM = MyBTM;
-        AvailableDevices = new HashMap<>();
-        BTServices = new HashMap<>();
-        ConnectionWorker = new ArrayList<>();
+        HashMap<String, String> availableDevices = new HashMap<>();
+        HashMap<String, IBTService> BTServices = new HashMap<>();
+        List<BTConnectionWorker> connectionWorker = new ArrayList<>();
         //
-        BTServer = new ArrayList<>();
+        List<Thread> BTServer = new ArrayList<>();
         //
         //LD = BTConnector.getLocalDeviceInfo();
         State = true;

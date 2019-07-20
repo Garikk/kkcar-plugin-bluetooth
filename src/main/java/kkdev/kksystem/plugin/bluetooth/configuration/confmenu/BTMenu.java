@@ -61,10 +61,10 @@ public class BTMenu {
         public void selectedItem(String ItemCMD) {
             if ("DISC on".equals(ItemCMD)) {
                 Discover = true;
-                Global.PM.MGMT_ChangeDiscoverState(Discover, DiscoverPin);
+                Global.PM.MGMT_ChangeDiscoverState(true, DiscoverPin);
             } else if ("DISC off".equals(ItemCMD)) {
                 Discover = false;
-                Global.PM.MGMT_ChangeDiscoverState(Discover, DiscoverPin);
+                Global.PM.MGMT_ChangeDiscoverState(false, DiscoverPin);
             }
             //
             // 

@@ -14,23 +14,22 @@ import kkdev.kksystem.base.classes.plugins.simple.SettingsManager;
 public abstract class PluginSettings {
 
    public static  String BT_CONF;
-   private static SettingsManager Settings;
 
     public static BTConfig MainConfiguration;
 
     public static void InitConfig(String GlobalConfigUID, String MyUID) {
          BT_CONF=GlobalConfigUID+"_"+MyUID + ".json";
-        
-        Settings=new SettingsManager(BT_CONF,BTConfig.class);
+
+        SettingsManager settings = new SettingsManager(BT_CONF, BTConfig.class);
         
         
        // System.out.println("[BT][CONFIG] Load configuration");
-        MainConfiguration=(BTConfig)Settings.loadConfig();
+        MainConfiguration=(BTConfig) settings.loadConfig();
 
         if (MainConfiguration == null) {
             System.out.println("[BT][CONFIG] Error Load configuration, try create default config");
-            Settings.saveConfig(kk_DefaultConfig.MakeDefaultConfig());
-            MainConfiguration=(BTConfig)Settings.loadConfig();
+            settings.saveConfig(kk_DefaultConfig.MakeDefaultConfig());
+            MainConfiguration=(BTConfig) settings.loadConfig();
         }
         if (MainConfiguration == null) {
             System.out.println("[BT][CONFIG] Load configuration, fatal");

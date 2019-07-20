@@ -14,11 +14,11 @@ import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
  * @author blinov_is
  */
 public interface IBTAdapter {
-    public void StartAdapter(BTManager BTM);
-    public void StopAdaper();
-    public void SetDiscoverableStatus(boolean Discover);
-    public boolean State();
-    public void RegisterService(ServicesConfig SC);
-    public void SendJsonData(String ServiceTag,String Json);
+    void StartAdapter(BTManager BTM);
+    void StopAdaper();
+    void SetDiscoverableStatus(boolean Discover);
+    boolean State();
+    void RegisterService(ServicesConfig SC);
+    void SendJsonData(String ServiceTag, String Json);
    
 }

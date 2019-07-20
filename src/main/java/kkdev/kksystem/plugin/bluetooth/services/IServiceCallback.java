@@ -10,7 +10,7 @@ package kkdev.kksystem.plugin.bluetooth.services;
  * @author sayma_000
  */
 public interface IServiceCallback {
-  public void  ReceiveServiceData(String Tag, String SrcAddr,Byte[] Data);
-  public void  ReceiveServiceData(String Tag, String SrcAddr,String Data);
+  void  ReceiveServiceData(String Tag, String SrcAddr, Byte[] Data);
+  void  ReceiveServiceData(String Tag, String SrcAddr, String Data);
   
 }

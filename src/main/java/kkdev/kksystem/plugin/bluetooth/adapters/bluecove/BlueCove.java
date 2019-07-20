@@ -5,13 +5,11 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
 
-import java.io.IOException;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
@@ -25,7 +23,6 @@ import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
  */
 public class BlueCove implements IBTAdapter, IServiceCallback {
 
-    private boolean State = false;
     private List<Thread> BTServer;
 
     //private HashMap<String, RemoteDevice> AvailableDevices;
@@ -137,7 +134,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
     @Override
     public void StopAdaper() {
-        State = false;
+        boolean state = false;
     }
 
     @Override
