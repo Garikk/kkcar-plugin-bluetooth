@@ -12,6 +12,7 @@ import java.util.List;
 
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
+import static kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig.BT_ServiceType.RFCOMM;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 import kkdev.kksystem.plugin.bluetooth.services.IBTService;
 import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
@@ -116,9 +117,9 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
     }
 
     private void InitLocalDevices() {
-        for (ServicesConfig SC : ServicesMapping) {
+        for (var SC : ServicesMapping) {
             if (!SC.ServerMode) {
-                if (SC.DevType == ServicesConfig.BT_ServiceType.RFCOMM) {
+                if (SC.DevType == RFCOMM) {
                     out.println("[BT][INF] SVC CONN " + SC.DevAddr);
                     IBTService Svc = null;
                     Svc = new BTServiceRFCOMM();
@@ -134,7 +135,7 @@ public class BlueCove implements IBTAdapter, IServiceCallback {
 
     @Override
     public void StopAdaper() {
-        boolean state = false;
+        var state = false;
     }
 
     @Override

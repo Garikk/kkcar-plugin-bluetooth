@@ -7,6 +7,7 @@ package kkdev.kksystem.plugin.bluetooth.configuration;
 
 import kkdev.kksystem.base.classes.plugins.PluginConfiguration;
 import kkdev.kksystem.base.constants.SystemConsts;
+import static kkdev.kksystem.base.constants.SystemConsts.KK_BASE_FEATURES_BLUETOOTH_UID;
 
 /**
  *
@@ -18,7 +19,7 @@ public class BTConfig  extends PluginConfiguration {
         PythonAdapter
     }
     
-    public String FeatureID=SystemConsts.KK_BASE_FEATURES_BLUETOOTH_UID;
+    public String FeatureID=KK_BASE_FEATURES_BLUETOOTH_UID;
     public AdapterTypes BTAdapter;
     public ServicesConfig[] BTServicesMapping;
 

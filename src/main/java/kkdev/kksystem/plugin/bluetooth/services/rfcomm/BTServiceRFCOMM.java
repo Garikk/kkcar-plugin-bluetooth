@@ -20,7 +20,7 @@ public class BTServiceRFCOMM implements IBTService {
     @Override
     public void ConnectService(String Tag,String ConnectionURL, IServiceCallback Callback) {
 
-        Thread ServiceReader = new Thread(() -> {
+        var ServiceReader = new Thread(() -> {
             //while (!Stop) {
                // try {
                     //out.println("[BT][INF] SVC DEV " +Tag + " " +ConnectionURL);
@@ -53,7 +53,7 @@ public class BTServiceRFCOMM implements IBTService {
 
     @Override
     public void StopService() {
-        boolean stop = true;
+        var stop = true;
     }
 
 }

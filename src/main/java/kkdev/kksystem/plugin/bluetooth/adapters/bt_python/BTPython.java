@@ -14,6 +14,7 @@ import java.util.List;
 
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
+import static kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig.BT_ServiceType.RFCOMM;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 import kkdev.kksystem.plugin.bluetooth.services.IBTService;
 import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
@@ -37,8 +38,8 @@ public class BTPython implements IBTAdapter, IServiceCallback {
       
         BTConnector = new BTGRPCConnector();
         BTM = MyBTM;
-        HashMap<String, String> availableDevices = new HashMap<>();
-        HashMap<String, IBTService> BTServices = new HashMap<>();
+        var availableDevices = new HashMap<String, String>();
+        var BTServices = new HashMap<String, IBTService>();
         List<BTConnectionWorker> connectionWorker = new ArrayList<>();
         //
         List<Thread> BTServer = new ArrayList<>();
@@ -109,9 +110,9 @@ public class BTPython implements IBTAdapter, IServiceCallback {
     }
 
     private void InitLocalDevices() {
-        for (ServicesConfig SC : ServicesMapping) {
+        for (var SC : ServicesMapping) {
             if (!SC.ServerMode) {
-                if (SC.DevType == ServicesConfig.BT_ServiceType.RFCOMM) {
+                if (SC.DevType == RFCOMM) {
                     out.println("[BT][INF] SVC CONN " + SC.DevAddr);
                     IBTService Svc = null;
                     Svc = new BTServiceRFCOMM();
