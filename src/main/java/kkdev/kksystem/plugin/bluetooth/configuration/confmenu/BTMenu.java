@@ -27,13 +27,13 @@ public class BTMenu {
 
     public void initBTMenu(IControllerUtils Utils) {
         MMaker = new MenuMaker(Utils, Global.PM.currentFeature.get(SystemConsts.KK_BASE_UICONTEXT_DEFAULT), SystemConsts.KK_BASE_UICONTEXT_DEFAULT, null, Global.PM.getPluginConnector(), MenuItemExec, true);
-//
+
         makeDiscoverPIN();
-//
+
         updateMenuItems();
-        //
+
         MMaker.addMenuItems(MenuItems);
-        //
+
         MMaker.showMenu();
     }
 
@@ -46,10 +46,10 @@ public class BTMenu {
         MenuItems[0].subItems = new MKMenuItem[2];
         MenuItems[0].subItems[0] = new MKMenuItem();
         MenuItems[0].subItems[0].displayName = "BT Visible";
-        //
+
         MenuItems[0].subItems[1] = new MKMenuItem();
         MenuItems[0].subItems[1].displayName = "PIN: " + DiscoverPin;
-        //
+
         MenuItems[1] = new MKMenuItem();
         MenuItems[1].displayName = "Devices";
         MenuItems[1].itemCommand = "";
@@ -66,8 +66,7 @@ public class BTMenu {
                 Discover = false;
                 Global.PM.MGMT_ChangeDiscoverState(false, DiscoverPin);
             }
-            //
-            // 
+
         }
 
         @Override

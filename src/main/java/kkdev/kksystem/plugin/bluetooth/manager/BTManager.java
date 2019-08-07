@@ -49,16 +49,14 @@ public class BTManager extends PluginManagerBase {
         //Init HW adapter
         if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.BlueCove) {
             Adapter = new BlueCove();
-        }
-        else if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.PythonAdapter)
-        {
+        } else if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.PythonAdapter) {
             Adapter = new BTPython();
         }
-                    //Set up services
-            for (ServicesConfig SVC : PluginSettings.MainConfiguration.BTServicesMapping) {
-                Adapter.RegisterService(SVC);
-            }
-            Adapter.StartAdapter(this);
+        //Set up services
+        for (ServicesConfig SVC : PluginSettings.MainConfiguration.BTServicesMapping) {
+            Adapter.RegisterService(SVC);
+        }
+        Adapter.StartAdapter(this);
 
     }
 
@@ -92,7 +90,6 @@ public class BTManager extends PluginManagerBase {
                 BTSettingsMenu.processControlPIN((PinDataControl) Msg.getPinData());
             }
         }
-
     }
 
     private void SetPairingPIN(String PIN) {
@@ -105,7 +102,5 @@ public class BTManager extends PluginManagerBase {
         } catch (IOException ex) {
             System.out.println("[BT][ERR] Error on create/update PINFILE");
         }
-
     }
-
 }

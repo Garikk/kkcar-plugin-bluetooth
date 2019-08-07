@@ -5,8 +5,7 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters.bt_python;
 
-import BTPython.BtService.DiscoveredDevices.BTDevice;
-
+import grpc.BtService.DiscoveredDevices.BTDevice;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +29,7 @@ public class BTPython implements IBTAdapter, IServiceCallback {
 
     private BTGRPCConnector BTConnector;
     private List<ServicesConfig> ServicesMapping;
-    private BTDevice LD;
+    private BTServiceApi BTApi;
     BTManager BTM;
 
     @Override
@@ -47,13 +46,11 @@ public class BTPython implements IBTAdapter, IServiceCallback {
         //LD = BTConnector.getLocalDeviceInfo();
         State = true;
         // Init Services
-        InitServices();
+        //InitServices();
         //
         //Init local devices
-        InitLocalDevices();
+        //InitLocalDevices();
         //
-
-        
     }
     @Override
     public void RegisterService(ServicesConfig SC) {
@@ -64,81 +61,23 @@ public class BTPython implements IBTAdapter, IServiceCallback {
     }
 
     private void InitServices() {
-        /*
-        IServiceCallback WorkerCallback = this;
 
-        for (ServicesConfig SC : ServicesMapping) {
-            System.out.println("[BT][INF] Check services " + SC.Name);
-            if (SC.ServerMode) {
-                Thread NS=new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //UUID _uuid = new UUID("0000110100001000800000805F9B34FB", false);
-                        UUID _uuid = new UUID(SC.ServicesUUID_String[0], false);
 
-                        try {
-                            System.out.println("[BT][INF] Init Service " + SC.Name);
-                            System.out.println("[BT][INF] Wait connection on btspp://localhost:" + _uuid);
-                            StreamConnectionNotifier serverConnection;
-                            serverConnection = (StreamConnectionNotifier) Connector.open("btspp://localhost:" + _uuid + "");
-                            while (State) {
-                                ConnectionWorker.add(new BTConnectionWorker(WorkerCallback, SC.Name,SC.KK_TargetTag, serverConnection.acceptAndOpen()));
-                                //
-                                // Clean closed connections
-                                List<BTConnectionWorker> CR = new ArrayList();
-                                for (BTConnectionWorker CW : ConnectionWorker) {
-                                    if (!CW.Active) {
-                                        CR.add(CW);
-                                    }
-                                }
-                                for (BTConnectionWorker CW : CR) {
-                                    ConnectionWorker.remove(CW);
-                                }
-                                CR.clear();
-                            }
-                        } catch (IOException ex) {
-                           System.out.println("[BT][ERR] " + SC.Name);
-                        }
-                        System.out.println("[BT][INF] STOP " + SC.Name);
-                    }
-                });
-                BTServer.add(NS);
-                NS.start();
-            }
-        }
-        */
     }
-
-    private void InitLocalDevices() {
-        for (var SC : ServicesMapping) {
-            if (!SC.ServerMode) {
-                if (SC.DevType == RFCOMM) {
-                    out.println("[BT][INF] SVC CONN " + SC.DevAddr);
-                    IBTService Svc = null;
-                    Svc = new BTServiceRFCOMM();
-                    Svc.ConnectService(SC.DevAddr, "btspp://" + SC.DevAddr, this);
-                } else {
-                    out.println("[BT][INF] Not supported service type detected " + SC.Name);
-                }
-            }
-        }
-    }
-
-    
 
     @Override
     public void StopAdaper() {
-        State = false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void SetDiscoverableStatus(boolean Discover) {
-        BTConnector.setDiscoveryState(Discover);
+        
     }
 
     @Override
     public boolean State() {
-        return BTConnector.getDiscoveryState();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -155,4 +94,5 @@ public class BTPython implements IBTAdapter, IServiceCallback {
     public void ReceiveServiceData(String Tag, String SrcAddr, String Data) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }
