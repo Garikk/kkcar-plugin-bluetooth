@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kkdev.kksystem.plugin.bluetooth.adapters.bluecove;
+package kkdev.kksystem.plugin.bluetooth.adapters.tinyb;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,7 +15,7 @@ import java.io.OutputStreamWriter;
 import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.microedition.io.StreamConnection;
+
 import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
 
 /**
@@ -25,7 +25,6 @@ import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
 public class BTConnectionWorker {
 
     IServiceCallback Callback;
-    StreamConnection Conn;
     DataInputStream DIS;
     DataOutputStream DOS;
     BufferedWriter BW;
@@ -33,15 +32,15 @@ public class BTConnectionWorker {
     public boolean Active;
     String svcTag;
 
-    public BTConnectionWorker(IServiceCallback SvcCallback, String Name, String ServiceTag, StreamConnection Connection) {
+    public BTConnectionWorker(IServiceCallback SvcCallback, String Name, String ServiceTag) {
         try {
             out.println("[BT] Received BTEXA connection for " + Name + " service");
-            Conn = Connection;
+           // Conn = Connection;
 
             svcTag=ServiceTag;
             SvcName = Name;
-            DIS = Conn.openDataInputStream();
-            DOS = Conn.openDataOutputStream();
+           // DIS = Conn.openDataInputStream();
+           // DOS = Conn.openDataOutputStream();
             BW = new BufferedWriter(new OutputStreamWriter(DOS));
             //
             Callback = SvcCallback;

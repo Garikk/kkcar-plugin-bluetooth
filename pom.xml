@@ -10,17 +10,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>base</artifactId>
             <version>1.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.gson</groupId>
-                    <artifactId>gson</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-all</artifactId>
-            <version>1.7.0</version>
+            <groupId>kkdev</groupId>
+            <artifactId>tinyb</artifactId>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
     <properties>

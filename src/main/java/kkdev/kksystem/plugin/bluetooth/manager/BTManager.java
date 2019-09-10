@@ -15,8 +15,7 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_
 import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.plugin.bluetooth.KKPlugin;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
-import kkdev.kksystem.plugin.bluetooth.adapters.bluecove.BlueCove;
-import kkdev.kksystem.plugin.bluetooth.adapters.bt_python.BTPython;
+import kkdev.kksystem.plugin.bluetooth.adapters.tinyb.TinyB;
 import kkdev.kksystem.plugin.bluetooth.configuration.BTConfig;
 import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
@@ -47,10 +46,8 @@ public class BTManager extends PluginManagerBase {
 
     private void ConfigAndInitHW() {
         //Init HW adapter
-        if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.BlueCove) {
-            Adapter = new BlueCove();
-        } else if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.PythonAdapter) {
-            Adapter = new BTPython();
+        if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.TinyB) {
+            Adapter = new TinyB();
         }
         //Set up services
         for (ServicesConfig SVC : PluginSettings.MainConfiguration.BTServicesMapping) {
