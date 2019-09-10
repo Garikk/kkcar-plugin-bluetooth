@@ -17,7 +17,8 @@ import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 import kkdev.kksystem.plugin.bluetooth.services.IBTService;
 import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
 import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
-
+import tinyb.BluetoothManager;
+import tinyb.BluetoothAdapter;
 /**
  *
  * @author sayma_000
@@ -25,17 +26,30 @@ import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
 public class TinyB implements IBTAdapter, IServiceCallback {
 
     private List<Thread> BTServer;
-
-    //private HashMap<String, RemoteDevice> AvailableDevices;
+    private BluetoothManager TinyBManager;
+    private HashMap<String, Object> AvailableDevices;
     private List<ServicesConfig> ServicesMapping;
     private HashMap<String, IBTService> BTServices;
-    //private LocalDevice LD;
+    private BluetoothAdapter LD;
+    private BluetoothManager TM;
     private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
+    private void test() {
+        out.println("[BT][ERR]");
+    }
+
+    public TinyB()
+    {
+        out.println("[BT][INF] Init");
+        TM=BluetoothManager.getBluetoothManager();
+        out.println("[BT][INF]" + TM.getAdapters());
+        out.println("[BT][INF] Init Ok");
+    }
     @Override
     public void StartAdapter(BTManager MyBTM) {
-        /*
+        
+        
         BTM = MyBTM;
         AvailableDevices = new HashMap<>();
         BTServices = new HashMap<>();
@@ -43,40 +57,39 @@ public class TinyB implements IBTAdapter, IServiceCallback {
         //
         BTServer = new ArrayList<>();
         //
-        try {
-            //display local device address and name
-            LD = LocalDevice.getLocalDevice();
-            State = true;
+       // try {
+            //State = true;
             // Init Services
             InitServices();
             //
             //Init local devices
-             InitLocalDevices();
-             //
-        } catch (BluetoothStateException ex) {
-            State = false;
-            out.println("[BT][ERR]" + ex.getMessage());
-            out.println("[BT][ERR] Bluetooth adapter disabled");
-        }
-        */
-        throw new UnsupportedOperationException();
+            InitLocalDevices();
+            //
+       // } catch (BluetoothStateException ex) {
+         //   State = false;
+          //  out.println("[BT][ERR]" + ex.getMessage());
+          //  out.println("[BT][ERR] Bluetooth adapter disabled");
+       // }
+
     }
+
     @Override
     public void RegisterService(ServicesConfig SC) {
-        if (ServicesMapping==null)
-            ServicesMapping=new ArrayList<>();
-            
+        if (ServicesMapping == null) {
+            ServicesMapping = new ArrayList<>();
+        }
+
         ServicesMapping.add(SC);
     }
 
     private void InitServices() {
-        /*
-        IServiceCallback WorkerCallback = this;
 
+        IServiceCallback WorkerCallback = this;
+        /*
         for (ServicesConfig SC : ServicesMapping) {
             System.out.println("[BT][INF] Check services " + SC.Name);
             if (SC.ServerMode) {
-                Thread NS=new Thread(new Runnable() {
+                Thread NS = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         //UUID _uuid = new UUID("0000110100001000800000805F9B34FB", false);
@@ -88,7 +101,7 @@ public class TinyB implements IBTAdapter, IServiceCallback {
                             StreamConnectionNotifier serverConnection;
                             serverConnection = (StreamConnectionNotifier) Connector.open("btspp://localhost:" + _uuid + "");
                             while (State) {
-                                ConnectionWorker.add(new BTConnectionWorker(WorkerCallback, SC.Name,SC.KK_TargetTag, serverConnection.acceptAndOpen()));
+                                ConnectionWorker.add(new BTConnectionWorker(WorkerCallback, SC.Name, SC.KK_TargetTag, serverConnection.acceptAndOpen()));
                                 //
                                 // Clean closed connections
                                 List<BTConnectionWorker> CR = new ArrayList();
@@ -103,7 +116,7 @@ public class TinyB implements IBTAdapter, IServiceCallback {
                                 CR.clear();
                             }
                         } catch (IOException ex) {
-                           System.out.println("[BT][ERR] " + SC.Name);
+                            System.out.println("[BT][ERR] " + SC.Name);
                         }
                         System.out.println("[BT][INF] STOP " + SC.Name);
                     }
@@ -111,9 +124,10 @@ public class TinyB implements IBTAdapter, IServiceCallback {
                 BTServer.add(NS);
                 NS.start();
             }
+        
         }
         */
-         throw new UnsupportedOperationException();
+
     }
 
     private void InitLocalDevices() {
@@ -131,8 +145,6 @@ public class TinyB implements IBTAdapter, IServiceCallback {
         }
     }
 
-    
-
     @Override
     public void StopAdaper() {
         var state = false;
@@ -140,7 +152,15 @@ public class TinyB implements IBTAdapter, IServiceCallback {
 
     @Override
     public void SetDiscoverableStatus(boolean Discover) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (LD == null) {
+            return;
+        }
+        LD.setDiscoverable(Discover);
+        if (Discover) {
+            System.out.println("[BT] Discover ON");
+        } else {
+            System.out.println("[BT] Discover OFF");
+        }
     }
 
     @Override
@@ -148,9 +168,14 @@ public class TinyB implements IBTAdapter, IServiceCallback {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
     @Override
     public void SendJsonData(String ServiceTag, String Json) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       for (BTConnectionWorker CN:ConnectionWorker)
+       {
+           CN.SendData(ServiceTag,Json);
+           
+       }
     }
 
     @Override
@@ -201,48 +226,8 @@ public class TinyB implements IBTAdapter, IServiceCallback {
         }
     };
 
-    @Override
-    public boolean State() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ReceiveServiceData(String Tag, String SrcAddr, Byte[] Data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ReceiveServiceData(String Tag, String SrcAddr, String Data) {
-        BTM.BT_ReceiveData(Tag, Data);
-    }
-
-    @Override
-    public void SendJsonData(String ServiceTag, String Json) {
-       for (BTConnectionWorker CN:ConnectionWorker)
-       {
-           CN.SendData(ServiceTag,Json);
-           
-       }
-    }
-
-    @Override
-    public void SetDiscoverableStatus(boolean Discover) {
-        if (LD==null)
-            return;
-        
-        try {
-            if (Discover) {
-                System.out.println("[BT] Discover ON");
-                LD.setDiscoverable(DiscoveryAgent.GIAC);
-            } else {
-                System.out.println("[BT] Discover OFF");
-                LD.setDiscoverable(DiscoveryAgent.NOT_DISCOVERABLE);
-            }
 
 
-        } catch (BluetoothStateException ex) {
-            Logger.getLogger(BlueCove.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 }
 */
