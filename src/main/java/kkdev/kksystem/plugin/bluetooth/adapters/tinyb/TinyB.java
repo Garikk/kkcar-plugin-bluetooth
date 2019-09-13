@@ -17,8 +17,12 @@ import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
 import kkdev.kksystem.plugin.bluetooth.services.IBTService;
 import kkdev.kksystem.plugin.bluetooth.services.IServiceCallback;
 import kkdev.kksystem.plugin.bluetooth.services.rfcomm.BTServiceRFCOMM;
-import tinyb.BluetoothManager;
-import tinyb.BluetoothAdapter;
+import java.util.*;
+import java.util.concurrent.locks.*;
+import java.util.concurrent.TimeUnit;
+import org.sputnikdev.bluetooth.manager.BluetoothManager;
+import org.sputnikdev.bluetooth.manager.impl.BluetoothManagerBuilder;
+
 /**
  *
  * @author sayma_000
@@ -35,16 +39,65 @@ public class TinyB implements IBTAdapter, IServiceCallback {
     private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
-    private void test() {
-        out.println("[BT][ERR]");
-    }
-
     public TinyB()
     {
+         BluetoothManager manager = new BluetoothManagerBuilder()
+                .withTinyBTransport(true)
+                .withBlueGigaTransport("^*.$")
+                .build();
+        
+        
+        
+        BluetoothGattService gs;
         out.println("[BT][INF] Init");
         TM=BluetoothManager.getBluetoothManager();
-        out.println("[BT][INF]" + TM.getAdapters());
+        LD = TM.getAdapters().get(0);
+        out.println("[BT][INF] Use: " + LD.getName() + " (" + LD.getAddress() + ")");
         out.println("[BT][INF] Init Ok");
+        LD.startDiscovery();
+        for (var i=1;i<3;i++)
+        {
+            if (LD.getDiscovering()){
+                out.println("[BT][INF] "+ LD.getDevices());
+                for (BluetoothDevice d: LD.getDevices())
+                {
+                    out.println(d.getAddress());
+                    if (d.getAddress().equals("78:02:F8:12:E0:56"))
+                    {
+                        out.println("[BT][INF] CNN");
+                       // if (!d.getConnected())
+                       // {
+                      //      d.connect();
+                       // }
+
+                        out.println("DEVNAME "+ d.getName() + " " + d.getAddress());
+                        out.println("SVCS "+ d.getServices());
+                        for (String uu: d.getUUIDs())
+                        {
+                            out.println("uid "+ uu);
+                        }
+                        
+                        out.println("paired " +d.getPaired());
+                        out.println("connectrd " +d.getConnected());
+                       // d.disconnect();
+                       
+                    }
+                    
+                }
+            }
+            else
+            {
+                    out.println("[BT][INF] Not desc");
+            }
+            try {
+            Thread.sleep(2000);
+            }
+            catch (Exception ex)
+            {
+                    out.println("[BT][INF] " + ex);
+            }
+        }
+        LD.stopDiscovery();
     }
     @Override
     public void StartAdapter(BTManager MyBTM) {
@@ -85,15 +138,15 @@ public class TinyB implements IBTAdapter, IServiceCallback {
     private void InitServices() {
 
         IServiceCallback WorkerCallback = this;
-        /*
         for (ServicesConfig SC : ServicesMapping) {
             System.out.println("[BT][INF] Check services " + SC.Name);
             if (SC.ServerMode) {
+                /*
                 Thread NS = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         //UUID _uuid = new UUID("0000110100001000800000805F9B34FB", false);
-                        UUID _uuid = new UUID(SC.ServicesUUID_String[0], false);
+                        String _uuid = SC.ServicesUUID_String[0];
 
                         try {
                             System.out.println("[BT][INF] Init Service " + SC.Name);
@@ -123,10 +176,10 @@ public class TinyB implements IBTAdapter, IServiceCallback {
                 });
                 BTServer.add(NS);
                 NS.start();
+            */
             }
         
         }
-        */
 
     }
 
