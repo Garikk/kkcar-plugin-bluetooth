@@ -15,7 +15,8 @@ import static kkdev.kksystem.base.constants.SystemConsts.KK_BASE_FEATURES_BLUETO
  */
 public class BTConfig  extends PluginConfiguration {
     public enum AdapterTypes {
-        TinyB
+        TinyB,
+        Python_Bluetooh
     }
     
     public String FeatureID=KK_BASE_FEATURES_BLUETOOTH_UID;

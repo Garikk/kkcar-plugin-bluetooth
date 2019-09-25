@@ -15,6 +15,7 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_
 import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.plugin.bluetooth.KKPlugin;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
+import kkdev.kksystem.plugin.bluetooth.adapters.bt_py.btpyAdapter;
 import kkdev.kksystem.plugin.bluetooth.adapters.tinyb.TinyB;
 import kkdev.kksystem.plugin.bluetooth.configuration.BTConfig;
 import kkdev.kksystem.plugin.bluetooth.configuration.PluginSettings;
@@ -49,6 +50,9 @@ public class BTManager extends PluginManagerBase {
         if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.TinyB) {
             Adapter = new TinyB();
         }
+        else if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.Python_Bluetooh) {
+            Adapter = new btpyAdapter();
+        }
         //Set up services
         for (ServicesConfig SVC : PluginSettings.MainConfiguration.BTServicesMapping) {
             Adapter.RegisterService(SVC);
@@ -81,7 +85,7 @@ public class BTManager extends PluginManagerBase {
     public void ReceivePIN(PluginMessage Msg) {
         if (Msg.pinName.equals(KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA)) {
             PinDataTaggedObj PIN = (PinDataTaggedObj) Msg.getPinData();
-            Adapter.SendJsonData(PIN.tag, (String) PIN.value);
+    //        Adapter.SendJsonData(PIN.tag, (String) PIN.value);
         } else if (Msg.pinName.equals(KK_PLUGIN_BASE_CONTROL_DATA)) {
             if (Msg.FeatureID.contains(PluginSettings.MainConfiguration.FeatureID)) {
                 BTSettingsMenu.processControlPIN((PinDataControl) Msg.getPinData());

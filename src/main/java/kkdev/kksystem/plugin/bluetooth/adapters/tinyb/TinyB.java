@@ -34,13 +34,14 @@ public class TinyB implements IBTAdapter, IServiceCallback {
     private HashMap<String, Object> AvailableDevices;
     private List<ServicesConfig> ServicesMapping;
     private HashMap<String, IBTService> BTServices;
-    private BluetoothAdapter LD;
+    //private BluetoothAdapter LD;
     private BluetoothManager TM;
     private List<BTConnectionWorker> ConnectionWorker;
     BTManager BTM;
 
     public TinyB()
     {
+        /*
          BluetoothManager manager = new BluetoothManagerBuilder()
                 .withTinyBTransport(true)
                 .withBlueGigaTransport("^*.$")
@@ -98,6 +99,7 @@ public class TinyB implements IBTAdapter, IServiceCallback {
             }
         }
         LD.stopDiscovery();
+        */
     }
     @Override
     public void StartAdapter(BTManager MyBTM) {
@@ -205,10 +207,9 @@ public class TinyB implements IBTAdapter, IServiceCallback {
 
     @Override
     public void SetDiscoverableStatus(boolean Discover) {
-        if (LD == null) {
-            return;
-        }
-        LD.setDiscoverable(Discover);
+       // if (LD == null) {
+      //  }
+      //  LD.setDiscoverable(Discover);
         if (Discover) {
             System.out.println("[BT] Discover ON");
         } else {
@@ -222,14 +223,14 @@ public class TinyB implements IBTAdapter, IServiceCallback {
     }
 
 
-    @Override
-    public void SendJsonData(String ServiceTag, String Json) {
-       for (BTConnectionWorker CN:ConnectionWorker)
-       {
-           CN.SendData(ServiceTag,Json);
+    //@Override
+    //public void SendJsonData(String ServiceTag, String Json) {
+//       for (BTConnectionWorker CN:ConnectionWorker)
+//       {
+//           CN.SendData(ServiceTag,Json);
            
-       }
-    }
+//       }
+  //  }
 
     @Override
     public void ReceiveServiceData(String Tag, String SrcAddr, Byte[] Data) {
@@ -240,6 +241,17 @@ public class TinyB implements IBTAdapter, IServiceCallback {
     public void ReceiveServiceData(String Tag, String SrcAddr, String Data) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void SendStringData(String ServiceTag, String Json) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void SendBytesData(String ServiceTag, byte[] data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
 /*
     ServerRequestHandler ServerBTEXA = new ServerRequestHandler() {

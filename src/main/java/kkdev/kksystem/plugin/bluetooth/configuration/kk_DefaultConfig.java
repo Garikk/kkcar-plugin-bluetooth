@@ -20,7 +20,7 @@ public abstract class kk_DefaultConfig {
         
         BTConfig DefConf = new BTConfig();
         
-        DefConf.BTAdapter=BTConfig.AdapterTypes.TinyB;
+        DefConf.BTAdapter=BTConfig.AdapterTypes.Python_Bluetooh;
         // 
         DefConf.BTServicesMapping=new ServicesConfig[10];
         DefConf.BTServicesMapping[0]=new ServicesConfig();
