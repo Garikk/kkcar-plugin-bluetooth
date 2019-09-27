@@ -24,7 +24,6 @@ public class btpyAdapter implements IBTAdapter  {
 
     class Adapter_Callback implements IBTAdapter_callback
     {
-
         @Override
         public void ReceiveData(String ServiceTag, String DeviceAddr, String Json) {
             out.println(ServiceTag);
@@ -40,12 +39,17 @@ public class btpyAdapter implements IBTAdapter  {
     
     @Override
     public void StartAdapter(BTManager BTM) {
-        if (this.py4jGateway != null) {
+        out.println("[BT][INF] Start btpyAdapter");
+        if (this.py4jGateway == null) {
             this.py4jGateway = new GatewayServer(this.getInstance());
+            out.println("[BT][INF] init py4j");
         }
         this.py4jGateway.start();
+        out.println("[BT][INF] started py4j");
         this.py_adapter_conector = (IBTAdapter_connector) this.py4jGateway.getPythonServerEntryPoint(new Class[] { IBTAdapter_connector.class });
+
         this.py_adapter_conector.StartAdapter();
+        out.println("[BT][INF] start adapter py4j");
 
     }
 
@@ -67,7 +71,10 @@ public class btpyAdapter implements IBTAdapter  {
 
     @Override
     public void RegisterService(ServicesConfig SC) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.py_adapter_conector!=null)
+        {
+            this.py_adapter_conector.RegisterService(SC);
+        }
     }
 
     @Override
