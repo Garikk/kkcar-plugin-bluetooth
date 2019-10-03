@@ -16,7 +16,7 @@ public interface IBTAdapter_connector {
     void StopAdaper();
     void SetDiscoverableStatus(boolean Discover);
     boolean State();
-    void RegisterService(ServicesConfig SC);
+    //void RegisterService(ServicesConfig SC);
     void SendStringData(String ServiceTag, String Json);
     void SendBytesData(String ServiceTag, byte[] data);
 }
