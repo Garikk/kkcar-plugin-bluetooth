@@ -2,6 +2,8 @@ package kkdev.kksystem.plugin.bluetooth.manager;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import kkdev.kksystem.base.classes.base.PinDataTaggedObj;
 import kkdev.kksystem.base.classes.base.PinDataTaggedString;
 import kkdev.kksystem.base.classes.controls.PinDataControl;
@@ -49,8 +51,7 @@ public class BTManager extends PluginManagerBase {
         //Init HW adapter
         if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.TinyB) {
             Adapter = new TinyB();
-        }
-        else if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.Python_Bluetooh) {
+        } else if (PluginSettings.MainConfiguration.BTAdapter == BTConfig.AdapterTypes.Python_Bluetooh) {
             Adapter = new btpyAdapter();
         }
         //Set up services
@@ -66,11 +67,23 @@ public class BTManager extends PluginManagerBase {
         Adapter.SetDiscoverableStatus(Discover);
         NOTIFY_METHOD[] NM = new NOTIFY_METHOD[1];
         NM[0] = NOTIFY_METHOD.VOICE;
+        String[] Tag = new String[2];
+        Tag[0] = "BT_VISIBLE_STATE_CHANGE";
+        Tag[1] = "BLUETOOTH";
         if (Discover) {
-            this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, "Bluetooth is visible");
+            this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, Tag, "Bluetooth is visible", null);
         } else {
-            this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, "Bluetooth is invisible");
+            this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, Tag, "Bluetooth is invisible", null);
         }
+    }
+
+    public void BT_DiscoveredDevices(String[] devices) {
+        NOTIFY_METHOD[] NM = new NOTIFY_METHOD[1];
+        NM[0] = NOTIFY_METHOD.INFO;
+        String[] Tag = new String[2];
+        Tag[0] = "BT_VISIBLE_STATE_CHANGE";
+        Tag[1] = "BLUETOOTH";
+        this.NOTIFY_SendNotifyMessage(PluginSettings.MainConfiguration.FeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, Tag, "BT Devices", devices);
     }
 
     public void BT_ReceiveData(String Tag, String Data) {
@@ -85,7 +98,7 @@ public class BTManager extends PluginManagerBase {
     public void ReceivePIN(PluginMessage Msg) {
         if (Msg.pinName.equals(KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA)) {
             PinDataTaggedObj PIN = (PinDataTaggedObj) Msg.getPinData();
-    //        Adapter.SendJsonData(PIN.tag, (String) PIN.value);
+            //        Adapter.SendJsonData(PIN.tag, (String) PIN.value);
         } else if (Msg.pinName.equals(KK_PLUGIN_BASE_CONTROL_DATA)) {
             if (Msg.FeatureID.contains(PluginSettings.MainConfiguration.FeatureID)) {
                 BTSettingsMenu.processControlPIN((PinDataControl) Msg.getPinData());

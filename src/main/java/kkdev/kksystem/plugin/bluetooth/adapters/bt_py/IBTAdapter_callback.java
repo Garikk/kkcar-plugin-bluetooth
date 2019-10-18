@@ -5,6 +5,7 @@
  */
 package kkdev.kksystem.plugin.bluetooth.adapters.bt_py;
 
+import java.util.ArrayList;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
@@ -14,5 +15,6 @@ import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
  * @author garikk
  */
 public interface IBTAdapter_callback {
+    void ReceiveDeviceList(Object DevList);
     void ReceiveData(String ServiceTag, String DeviceAddr, String Json);
 }

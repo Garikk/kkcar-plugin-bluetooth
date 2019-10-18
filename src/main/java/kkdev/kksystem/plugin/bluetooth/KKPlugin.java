@@ -36,9 +36,7 @@ public final class KKPlugin extends KKPluginBase {
     @Override
     public void executePin(PluginMessage Pin) {
         super.executePin(Pin);
-       // System.out.println("[BT][DEBUG] " +Pin.PinData );
         Global.PM.ReceivePIN(Pin);
-        return;
     }
     
     

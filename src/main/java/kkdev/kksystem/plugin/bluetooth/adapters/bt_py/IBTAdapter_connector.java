@@ -19,4 +19,6 @@ public interface IBTAdapter_connector {
     //void RegisterService(ServicesConfig SC);
     void SendStringData(String ServiceTag, String Json);
     void SendBytesData(String ServiceTag, byte[] data);
+    
+    void RequestNearbyDevices();
 }
