@@ -38,9 +38,9 @@ public class BTManager extends PluginManagerBase {
         //Init Adapters and start scan and connect
         this.currentFeature.put(SystemConsts.KK_BASE_UICONTEXT_DEFAULT, PluginSettings.MainConfiguration.FeatureID);
         BTSettingsMenu = new BTMenu();
-        //
+
         ConfigAndInitHW();
-        //
+
     }
 
     public void Start() {

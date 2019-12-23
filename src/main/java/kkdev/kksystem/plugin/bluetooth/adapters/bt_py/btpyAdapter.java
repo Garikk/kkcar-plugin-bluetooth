@@ -6,6 +6,8 @@
 package kkdev.kksystem.plugin.bluetooth.adapters.bt_py;
 
 import static java.lang.System.out;
+import java.util.ArrayList;
+import java.util.List;
 import kkdev.kksystem.plugin.bluetooth.adapters.IBTAdapter;
 import kkdev.kksystem.plugin.bluetooth.configuration.ServicesConfig;
 import kkdev.kksystem.plugin.bluetooth.manager.BTManager;
@@ -24,6 +26,11 @@ public class btpyAdapter implements IBTAdapter, IBTAdapter_callback {
     GatewayServer py4jGateway;
     private static btpyAdapter instance;
     private IBTAdapter_connector py_adapter_conector;
+    private List<ServicesConfig> services;
+
+    public btpyAdapter() {
+        this.services = new ArrayList<>();
+    }
 
     public btpyAdapter getInstance() {
         if (instance == null) {
@@ -40,7 +47,7 @@ public class btpyAdapter implements IBTAdapter, IBTAdapter_callback {
 
         @Override
         public void connectionStarted(Py4JServerConnection pjsc) {
-            out.println("[BT][INF] py4j conn started");
+
         }
 
         @Override
@@ -66,6 +73,16 @@ public class btpyAdapter implements IBTAdapter, IBTAdapter_callback {
         @Override
         public void serverStarted() {
             out.println("[BT][INF] py4j server started ");
+            py_adapter_conector = (IBTAdapter_connector) py4jGateway.getPythonServerEntryPoint(new Class[]{IBTAdapter_connector.class});
+
+            services.forEach((svc) -> {
+                out.println("[BT][INF] send svc to BT " + svc.Name);
+                try {
+                    py_adapter_conector.RegisterService(svc);
+                } catch (Exception ex) {
+                    out.println("[BT][ERR] " + ex);
+                }
+            });
         }
 
         @Override
@@ -85,9 +102,6 @@ public class btpyAdapter implements IBTAdapter, IBTAdapter_callback {
         ReflectionUtil.setClassLoadingStrategy(rmmClassLoader);
         this.py4jGateway.addListener(gw_listener);
         this.py4jGateway.start();
-        py_adapter_conector = (IBTAdapter_connector) py4jGateway.getPythonServerEntryPoint(new Class[]{IBTAdapter_connector.class});
-        py_adapter_conector.RequestNearbyDevices();
-
         out.println("[BT][INF] Adapter started");
 
     }
@@ -110,7 +124,7 @@ public class btpyAdapter implements IBTAdapter, IBTAdapter_callback {
 
     @Override
     public void RegisterService(ServicesConfig SC) {
-       //
+        services.add(SC);
     }
 
     @Override
@@ -125,7 +139,7 @@ public class btpyAdapter implements IBTAdapter, IBTAdapter_callback {
 
     @Override
     public void ReceiveDeviceList(Object DevList) {
-       out.println(DevList);
+        out.println(DevList);
     }
 
     @Override
